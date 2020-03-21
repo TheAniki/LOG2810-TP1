@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\ouass\source\repos\TP1_LOG2810\TP1_LOG2810\main.cpp(131,24): warning C4101:  'afficher' : variable locale non référencée
+  TP1_LOG2810.vcxproj -> C:\Users\ouass\source\repos\TP1_LOG2810\Debug\TP1_LOG2810.exe
