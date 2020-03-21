@@ -1,8 +1,8 @@
 /****************************************************************************
- * Fichier:
- * Auteurs:
- * Date:
- * Description:
+ * Fichier: Taxi.h
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Date: 22 Mars 2020
+ * Description: Définition de la classe Taxi des de ses méthodes
  ****************************************************************************/
 #ifndef TAXI_H
 #define TAXI_H
@@ -32,20 +32,26 @@ public:
 	void miseAjourRequetes();
 
 
-	void ajouterPassager(Passager* passager);
+	void ajouterPassager(Passager passager);
 	void ajouterSommet(Sommet sommet);
-	void enleverPassager(Passager* passager);
+	void enleverPassager(Passager passager);
 
 	void chargerTaxi();
 	void modificationEnergieRestante(int energie);
 
+	//bool trierSelonId(Passager passager1, Passager passager2);
+
+	//bool operator<(Passager& passager1, Passager& passager2);
+
 	//methode lecture requete;
 	void lireFichier();
-	void placerPassager();
+	void placerPassagerDansGraphe();
 
 	//methode affichage
 	void afficherRequetes();
 	void afficherPassagerTaxi();
+
+	void trierSelonId();
 
 private:
 	int energieRestante_;
@@ -54,7 +60,7 @@ private:
 	vector<string> listeFichierRequete_;
 	vector<Passager*> listeRequete_;
 
-	vector<pair<Passager*,int>> listePassagersTaxi_; // passager et  int priortie
+	vector<Passager> listePassagersTaxi_;
 	vector<Sommet> historiqueSommetsParcouru_;
 };
 

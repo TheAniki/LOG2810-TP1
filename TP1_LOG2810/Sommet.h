@@ -1,8 +1,8 @@
 /****************************************************************************
- * Fichier:
- * Auteurs:
- * Date:
- * Description:
+ * Fichier: Sommet.h
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Date: 22 Mars 2020
+ * Description: Définition de la classe Sommet des de ses méthodes
  ****************************************************************************/
 #ifndef SOMMET_H
 #define SOMMET_H
@@ -24,8 +24,12 @@ public:
 	int getNumeroDuSommet();
 	bool getPresenceBorne();
 	vector<pair<Sommet*, int>> getSommetsAdjacents();
+
+
 	void ajouterSommetAdjacent(Sommet* sommetAdjacent, int temps);
 
+	bool operator!=(const Sommet sommet) const;
+	
 
 private:
 	vector<pair<Sommet*, int>> sommetsAdjacents_; //Sommet : pour le sommet et int pour le temps entre les 2

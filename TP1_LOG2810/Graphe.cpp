@@ -1,8 +1,9 @@
 /****************************************************************************
  * Fichier:
- * Auteurs:
- * Date:
- * Description:
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Date: 22 Mars 2020
+ * Description: Implémentation des méthodes de la classe Graphe 
+				et de méthode globale utilisé lors de la lecture des fichiers 
  ****************************************************************************/
 
 #include "Graphe.h"
@@ -28,50 +29,51 @@ Graphe::~Graphe()
 	EffacerTousSommets();
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::getNomFichier
+  * Description: Permet d'obtenir le nom du fichier
+  * Paramètres: aucun
+  * Retour: nom du fichier
   ****************************************************************************/
 string Graphe::getNomFichier()
 {
 	return nomFichier_;
 }
 /****************************************************************************
-  * Fonction:    
-  * Description: 
-  * Paramètres:  
-  * Retour:      
+  * Fonction: vector<Sommet*> Graphe::getSommets
+  * Description: Permet d'obtenir la liste des sommets du graphe
+  * Paramètres:  aucun
+  * Retour: liste des sommets, sommets_
   ****************************************************************************/
 const vector<Sommet*> Graphe::getSommets()
 {
 	return sommets_;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::getListeDonnees
+  * Description: Permet d'obtenir la liste des données non traite du fichier
+  * Paramètres: aucun
+  * Retour: liste des donnees du fichier, listeDonnees_
   ****************************************************************************/
 const vector<string> Graphe::getListeDonnees()
 {
 	return listeDonnees_;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::modifierNomFichier
+  * Description: Permet de modifier le nom du fichier 
+  * Paramètres: string nouveauNomFichier
+  * Retour: aucun
   ****************************************************************************/
 const void Graphe::modifierNomFichier(const string& nouveauNomFichier)
 {
 	nomFichier_ = nouveauNomFichier;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::lireFichier
+  * Description: Permet de lire les lignes du fichier puis 
+				 les place dans listeDonnees_ pour être traiter
+  * Paramètres: le nom du fichier (string)
+  * Retour: aucun
   ****************************************************************************/
 void Graphe::lireFichier(string nomFichier)
 {
@@ -98,10 +100,12 @@ void Graphe::lireFichier(string nomFichier)
 	fichier.close();
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: partieVoisin
+  * Description: Fonction générale permettant de compter le nombre de virgule
+				 dans la ligne, afin de determinée si c'est la partie du fichier
+				 contenant la liste des sommets et leurs voisins
+  * Paramètres: string ligne
+  * Retour: bool retourne true s'il y a 2 virgules et false pour les autres
   ****************************************************************************/
 bool partieVoisin(string ligne)
 {
@@ -116,10 +120,13 @@ bool partieVoisin(string ligne)
 	return (compteurVirgule == 2) ? true : false;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: partieSommet
+  * Description: Fonction générale comptant le nombre de virgule afin de
+				 déterminée si c'est la partie du fichier contenant 
+				la liste des sommets
+  * Paramètres: string ligne
+  * Retour: bool true si une virgule dans la ligne et 
+			false s'il y a moins ou plus qu'une virgule
   ****************************************************************************/
 bool partieSommet(string ligne)
 {
@@ -134,10 +141,11 @@ bool partieSommet(string ligne)
 	return (compteurVirgule == 1) ? true : false;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::creerGraphe
+  * Description: Fonction crééant le graphe de façôn récursive grâce à 
+				 la listeDonnees lue par la fonction lireFichier()
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
 void Graphe::creerGraphe()
 {
@@ -146,6 +154,7 @@ void Graphe::creerGraphe()
 			{
 				vector<string> listeDonneeFichier = split(listeDonnees_[compteurLigne], ',');
 				int numSommetOrigine = convertStringtoInt(listeDonneeFichier[0]);
+
 				int numSommetAdjacent = convertStringtoInt(listeDonneeFichier[1]);
 				int temps = convertStringtoInt(listeDonneeFichier[2]);
 
@@ -176,10 +185,20 @@ void Graphe::creerGraphe()
 		
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::AffichageGraphe
+  * Description: Méthode permettant d'afficher le graphe sous la forme 
+				 ----------------------------------
+				 Sommet : X | presenceBorne : oui/non
+
+				 liste des sommets adjacents :
+				 Sommet : X  temps : Y
+				 .
+				 .
+				 .
+				 ----------------------------------
+
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
 void Graphe::AffichageGraphe()
 {
@@ -214,10 +233,11 @@ void Graphe::AffichageGraphe()
 	AffichageGraphe();
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::EffacerTousSommets
+  * Description: Méthode permettant d'effacer tous les sommets de la liste de
+				 sommets_
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
 void Graphe::EffacerTousSommets()
 {
@@ -228,10 +248,10 @@ void Graphe::EffacerTousSommets()
 	sommets_.clear();
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::miseAJourGraphe
+  * Description: Méthode contenant la séquence de la mise à jour du graphe
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
 void Graphe::miseAJourGraphe()
 {
@@ -241,10 +261,10 @@ void Graphe::miseAJourGraphe()
 	creerGraphe();
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: Graphe::chercherSommet
+  * Description: Permet de chercher un sommet parmit la liste de sommets_
+  * Paramètres: le numéro du sommet à chercher (int)
+  * Retour: le sommet rechercher, s'il est dans la liste
   ****************************************************************************/
 Sommet* Graphe::chercherSommet(int numeroSommet)
 {
@@ -259,10 +279,11 @@ Sommet* Graphe::chercherSommet(int numeroSommet)
 	return nullptr;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: split
+  * Description: Fonction générale, permettant de séparer un string 
+				 selon un charctère délimitant
+  * Paramètres: le string s à séparer et le char delim (délimitant)
+  * Retour: retourne le string séparer 
   ****************************************************************************/
 //https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
 vector<string> split(const string& s, char delim) {
@@ -277,20 +298,20 @@ vector<string> split(const string& s, char delim) {
 	return result;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: convertStringtoBool
+  * Description: Permet de convertir le string en bool
+  * Paramètres: string ligne
+  * Retour: vrai si "1" et faux pour le reste
   ****************************************************************************/
 bool convertStringtoBool(string ligne)
 {
 	return (ligne == "1") ? true : false;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: convertStringtoInt
+  * Description: Permet de convertir le string en int
+  * Paramètres: string ligne
+  * Retour: le string converti en int
   ****************************************************************************/
 int convertStringtoInt(string ligne)
 {

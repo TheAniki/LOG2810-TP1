@@ -1,7 +1,7 @@
 /****************************************************************************
  * Fichier:
- * Auteurs:
- * Date:
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Date: 22 Mars 2020
  * Description:
  ****************************************************************************/
 #include <iostream>
@@ -10,18 +10,21 @@
 #include <stdlib.h> 
 #include <vector>
 #include <sstream>
+
 #include "Graphe.h"
 #include "Taxi.h"
 #include "Test.h"
+#include "algorithme.h"
+#include "Sommet.h"
+#include "Passager.h"
 
 using namespace std;
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: affichageOptions()
+  * Description: Permet d'afficher les options
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
-//Methode permettant l'affichage des options
 void affichageOptions()
 {
 	cout << " Selectionner operation voulue : " << endl
@@ -32,16 +35,12 @@ void affichageOptions()
 		<< " t : tests " << endl;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: choixPossible
+  * Description: Permet de forcer la sélection parmit les char dans les if
+  * Paramètres: char choix
+  * Retour: vrai si choix est parmis les choix possible, faux si autre
   ****************************************************************************/
-/*
-methode choixPossible
-retourne true si choix est a,b,d ou d sinon
-retourne false
-*/
+
 bool choixPossible(char choix)
 {
 	if (choix == 'a') return true;
@@ -52,10 +51,10 @@ bool choixPossible(char choix)
 	return false;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: choixYesNo 
+  * Description: Permet de forcer la sélection à y/n 
+  * Paramètres: char choix
+  * Retour: vrai si y ou n , faux pour le reste
   ****************************************************************************/
 /*
 methode choixYesNo 
@@ -69,10 +68,10 @@ bool choixYesNo(char choix)
 	return false;
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: MethodeDeLOptionA()
+  * Description: Séquence pour l'option a
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
 void MethodeDeLOptionA()
 {
@@ -101,22 +100,23 @@ void MethodeDeLOptionA()
 	if (afficher == 'y')
 		taxi.afficherRequetes();
 	
+	
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: MethodeDeLOptionB()
+  * Description: Séquence pour l'option b
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
 void MethodeDeLOptionB()
 {
 
 }
 /****************************************************************************
-  * Fonction:
-  * Description:
-  * Paramètres:
-  * Retour:
+  * Fonction: MethodeDeLOptionC()
+  * Description: Séquence pour l'option c
+  * Paramètres: aucun
+  * Retour: aucun
   ****************************************************************************/
 void MethodeDeLOptionC()
 {

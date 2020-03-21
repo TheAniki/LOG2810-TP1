@@ -1,8 +1,8 @@
 /****************************************************************************
- * Fichier:
- * Auteurs:
- * Date:
- * Description:
+ * Fichier: Passager.h
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Date: 22 Mars 2020
+ * Description: Définition de la classe Passager des de ses méthodes
  ****************************************************************************/
 #ifndef PASSAGER_H
 #define PASSAGER_H
@@ -28,11 +28,14 @@ public:
 	const int getSommetDepart();
 	const int getId();
 
+	void modifierTemps(int tempsAretirer);
+
 	bool operator==(const Passager& passager) const;
+	friend ostream& operator<<(ostream& o, const Passager& unPassager);
 private:
 
-	int id_; // idfentifiant
-	int tempsArrivee_; // temps limite.
+	int id_; // identifiant
+	int tempsArrivee_; // temps limite.	
 	int sommetDepart_; // numero du sommet de depart.
 	int destination_; // numero du sommet a atteindre.
 };
