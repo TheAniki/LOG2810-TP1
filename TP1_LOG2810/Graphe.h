@@ -18,6 +18,7 @@
 
 using namespace std;
 
+
 //methode generale de converstion :
 vector<string> split(const string& s, char delim);
 int convertStringtoInt(string ligne);
@@ -33,6 +34,7 @@ public:
 	//methode d'acces
 	string getNomFichier(); const
 	vector<Sommet*> getSommets(); const
+	int getNbSommets(); const
 	vector<string> getListeDonnees(); const
 	//methode modification
 	void modifierNomFichier(const string& nouveauNomFichier);
@@ -50,6 +52,7 @@ private:
 	string nomFichier_;
 	vector<Sommet*> sommets_;
 	vector<string> listeDonnees_;
+	int nbSommets; // nbSommets total (PL)
 };
 
 

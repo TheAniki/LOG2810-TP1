@@ -56,6 +56,10 @@ const vector<string> Graphe::getListeDonnees()
 {
 	return listeDonnees_;
 }
+
+const int Graphe::getNbSommets() { return nbSommets; }
+
+
 /****************************************************************************
   * Fonction: Graphe::modifierNomFichier
   * Description: Permet de modifier le nom du fichier 
@@ -171,7 +175,8 @@ void Graphe::creerGraphe()
 				bool presenceborne = convertStringtoBool(listeDonneeFichier[1]);
 				Sommet* nouveauSommet = new Sommet(numeroSommet, presenceborne);
 				sommets_.push_back(nouveauSommet);
-				compteurLigne++;				
+				compteurLigne++;			
+				nbSommets++;  // incréemente nbSommets pour avoir total total (PL)
 			}			
 			if (compteurLigne < listeDonnees_.size())
 			{

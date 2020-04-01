@@ -1,11 +1,4 @@
 ﻿  algorithme.cpp
-  Graphe.cpp
-  main.cpp
-  Passager.cpp
-  Sommet.cpp
-  taxi.cpp
-C:\Users\ouass\source\repos\TP1_LOG2810\TP1_LOG2810\main.cpp(131,24): warning C4101:  'afficher' : variable locale non référencée
-  Test.cpp
-  Génération de code en cours...
-C:\Users\ouass\source\repos\TP1_LOG2810\TP1_LOG2810\taxi.cpp(66,52): warning C4267:  'initialisation' : conversion de 'size_t' en 'unsigned int', perte possible de données
-  TP1_LOG2810.vcxproj -> C:\Users\ouass\source\repos\TP1_LOG2810\x64\Debug\TP1_LOG2810.exe
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(143,43): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(164,9): warning C4101: 'sommetDepart': unreferenced local variable
+  TP1_LOG2810.vcxproj -> \\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\x64\Debug\TP1_LOG2810.exe

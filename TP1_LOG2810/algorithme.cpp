@@ -5,7 +5,7 @@
  * Description: Implémentation des méthodes utilisée pour l'algorithme
  ****************************************************************************/
 #include"algorithme.h"
-
+#include <queue>
 
 Algorithme::Algorithme()
 {
@@ -158,7 +158,50 @@ void Algorithme::trierListeSelonDistance()
 Trajet Algorithme::plusCourtChemin(int depart, int arrivee)
 {
 	//TODO : finir plusCourtChemin
-	Trajet trajet;
+    Trajet trajet;
+    
+    int infini = numeric_limits<int>::max();
+    int sommetDepart;
+
+    // Fonction lambda de comparaison de distance, sera servi pour le priority_queue
+    auto compareDistance = [](const pair<int, int>& a, const pair<int, int>& b) { return a.second > b.second; };
+
+    //vector des distances, de taille NB_MAX_SOMMETS, initializé à infini  par défaut
+    vector<int> vecteurDistances(graphe_.getNbSommets(), infini);
+
+    //Sommet de départ possède une distance = 0
+    vecteurDistances[depart] = 0;
+
+    //Création d'un vector pour les parents des somemts, initializé à -1 par défaut
+    vector<int> vecteurParents(graphe_.getNbSommets(), -1);
+
+    // On utilise une priority queue pour que le sommet le plus proche soit toujours au dessus de la file
+    // Une pair contient <index, distance par rapport départ>
+    priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compareDistance)> queue(compareDistance);
+
+    // On ajoute le sommet de départ à la file
+    queue.push(make_pair(depart, 0));
+
+    // Debut de Dijkstra
+    while (!queue.empty()) {
+        int indexSommetTopFile = queue.top().first;
+        int distanceSommetTopFile = queue.top().second;
+        queue.pop(); // on retire le sommet le plus pres de la file
+
+        if (distanceSommetTopFile <= vecteurDistances[indexSommetTopFile]) {
+            //On passe a travers tout les sommets adjacents du sommet sur le top de la file
+            for (auto i : graphe_.getSommets()[indexSommetTopFile]->getSommetsAdjacents()) {
+                auto indexSommetCourant = i.first->getNumeroDuSommet();
+                auto distanceSommetCourant = i.second;
+
+                if (vecteurDistances[indexSommetTopFile] + distanceSommetCourant < vecteurDistances[indexSommetCourant]) {
+                    vecteurDistances[indexSommetCourant] = vecteurDistances[indexSommetTopFile] + distanceSommetCourant;
+                    vecteurParents[indexSommetCourant] = indexSommetTopFile;
+                    queue.push(make_pair(indexSommetCourant,vecteurDistances[indexSommetCourant]));
+                }
+            }
+        }
+    }
 
 	return trajet;
 }
