@@ -98,9 +98,7 @@ void MethodeDeLOptionA()
 		cin >> afficher;
 	}
 	if (afficher == 'y')
-		taxi.afficherRequetes();
-	
-	
+		taxi.afficherRequetes();		
 }
 /****************************************************************************
   * Fonction: MethodeDeLOptionB()
@@ -143,18 +141,18 @@ int main()
 		switch (select)
 		{
 		case 'a':	cout << "Mettre a jouer la carte ." << endl;
-					MethodeDeLOptionA();					
+					MethodeDeLOptionA();		
 			break;
 		case 'b' :	cout << "Determiner le plus court chemin securitaire. " << endl;
 					MethodeDeLOptionB();
 			break;
 		case 'c' :	cout << "Traiter les requetes. " << endl;
-			MethodeDeLOptionC();
+					MethodeDeLOptionC();
 			break;
 		case 'd' : cout << "Quitter" << endl;
 			break;
 		case 't': cout << "test" << endl; // si besoin
-			exectuterTousLesTests();
+				  exectuterTousLesTests();
 
 		default:						
 			break;

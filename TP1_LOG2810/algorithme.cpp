@@ -59,11 +59,11 @@ Taxi Algorithme::getTaxi()
 void Algorithme::ajouterTrajet(Trajet trajet)
 {
 	// TODO : Px etre ajouter un if pour ne pas ajouter le trajet s'il est deja present dans la liste
-
 	listeTrajetsPossible_.push_back(trajet);
+
 	// permet de trier la liste des trajet selon leur distance, en ordre croissant
 	trierListeSelonDistance();
-	//sort(listeTrajetsPossible_.begin(), listeTrajetsPossible_.end());
+	
 }
 /****************************************************************************
   * Fonction: Algorithme::ajouterTrajetSiPlusCourt

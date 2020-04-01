@@ -8,11 +8,9 @@
 
 #include "Graphe.h"
 int NB_MAX_SOMMETS =  19;
-bool MiseAJour = true;
 int compteur = 0;
 int compteurSommet = 0;
 unsigned int compteurLigne = 0;
-bool fichierOuvert = false;
 
 Graphe::Graphe():nomFichier_("")
 {
@@ -153,8 +151,8 @@ void Graphe::creerGraphe()
 			if (partieVoisin(listeDonnees_[compteurLigne]))
 			{
 				vector<string> listeDonneeFichier = split(listeDonnees_[compteurLigne], ',');
-				int numSommetOrigine = convertStringtoInt(listeDonneeFichier[0]);
 
+				int numSommetOrigine = convertStringtoInt(listeDonneeFichier[0]);
 				int numSommetAdjacent = convertStringtoInt(listeDonneeFichier[1]);
 				int temps = convertStringtoInt(listeDonneeFichier[2]);
 
@@ -168,6 +166,7 @@ void Graphe::creerGraphe()
 			else if(partieSommet(listeDonnees_[compteurLigne]))
 			{
 				vector<string> listeDonneeFichier = split(listeDonnees_[compteurLigne], ',');
+
 				int numeroSommet = convertStringtoInt(listeDonneeFichier[0]);
 				bool presenceborne = convertStringtoBool(listeDonneeFichier[1]);
 				Sommet* nouveauSommet = new Sommet(numeroSommet, presenceborne);
