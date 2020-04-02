@@ -10,7 +10,18 @@
 void exectuterTousLesTests()
 {
 
- 
+    Graphe graphe = Graphe("arrondissements.txt");
+    
+
+    Taxi taxi = Taxi("requetes.txt");
+
+    graphe.miseAJourGraphe();
+
+    Algorithme algo(graphe,taxi);
+
+    algo.plusCourtChemin(12);
+
+
 }
 
 

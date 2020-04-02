@@ -50,7 +50,7 @@ public:
 	//bool comparerDistance(Trajet trajetAComparer,Trajet trajetDeLaListe);
 	//bool operator<(const Trajet& trajetAComparer); const
 
-	Trajet plusCourtChemin(int depart, int arrivee);
+	Trajet plusCourtChemin(int depart);
 
 private:
 	vector<Trajet> listeTrajetsPossible_; // contient la liste des trajets possible

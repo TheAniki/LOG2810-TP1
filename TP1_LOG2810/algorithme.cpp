@@ -12,7 +12,8 @@ Algorithme::Algorithme()
 }
 Algorithme::Algorithme(Graphe graphe, Taxi taxi) : graphe_(graphe), taxi_(taxi)
 {
-	
+
+    
 }
 
 Algorithme::~Algorithme()
@@ -155,7 +156,7 @@ void Algorithme::trierListeSelonDistance()
   * Paramètres: numero du sommet de depart
   * Retour: le trajet le plus court pour franchir tous les sommets
   ****************************************************************************/
-Trajet Algorithme::plusCourtChemin(int depart, int arrivee)
+Trajet Algorithme::plusCourtChemin(int depart)
 {
     //TODO : finir plusCourtChemin
     Trajet trajet;
@@ -172,7 +173,7 @@ Trajet Algorithme::plusCourtChemin(int depart, int arrivee)
     //Sommet de départ possède une distance = 0
     vecteurDistances[depart] = 0;
 
-    //Création d'un vector pour les parents des somemts, initializé à -1 par défaut
+    //Création d'un vector pour les parents des sommets, initializé à -1 par défaut
     vector<int> vecteurParents(graphe_.getNbSommets(), -1);
 
     // On utilise une priority queue pour que le sommet le plus proche soit toujours au dessus de la file
@@ -189,6 +190,7 @@ Trajet Algorithme::plusCourtChemin(int depart, int arrivee)
         queue.pop(); // on retire le sommet le plus pres de la file
 
         if (distanceSommetTopFile <= vecteurDistances[indexSommetTopFile]) {
+
             //On passe a travers tout les sommets adjacents du sommet sur le top de la file
             for (auto i : graphe_.getSommets()[indexSommetTopFile]->getSommetsAdjacents()) {
                 auto indexSommetCourant = i.first->getNumeroDuSommet();
