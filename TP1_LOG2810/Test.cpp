@@ -19,7 +19,7 @@ void exectuterTousLesTests()
 
     Algorithme algo(graphe,taxi);
 
-    algo.plusCourtChemin(12);
+    algo.plusCourtChemin(12, 2);
 
 
 }

@@ -10,7 +10,7 @@
 Algorithme::Algorithme()
 {
 }
-Algorithme::Algorithme(Graphe graphe, Taxi taxi) : graphe_(graphe), taxi_(taxi)
+Algorithme::Algorithme(const Graphe& graphe, const Taxi& taxi) : graphe_(graphe), taxi_(taxi)
 {
 
     
@@ -156,7 +156,7 @@ void Algorithme::trierListeSelonDistance()
   * Paramètres: numero du sommet de depart
   * Retour: le trajet le plus court pour franchir tous les sommets
   ****************************************************************************/
-Trajet Algorithme::plusCourtChemin(int depart)
+Trajet Algorithme::plusCourtChemin(int depart, int arrive)
 {
     //TODO : finir plusCourtChemin
     Trajet trajet;
@@ -167,14 +167,16 @@ Trajet Algorithme::plusCourtChemin(int depart)
     // Fonction lambda de comparaison de distance, sera servi pour le priority_queue
     auto compareDistance = [](const pair<int, int>& a, const pair<int, int>& b) { return a.second > b.second; };
 
-    //vector des distances, de taille NB_MAX_SOMMETS, initializé à infini  par défaut
-    vector<int> vecteurDistances(graphe_.getNbSommets(), infini);
+    //vector des distances, de taille NB_MAX_SOMMETS+1, initializé à infini  par défaut
+    // +1 pour que les index match le numéro du sommet
+    vector<int> vecteurDistances(graphe_.getNbSommets()+1, infini);
 
     //Sommet de départ possède une distance = 0
     vecteurDistances[depart] = 0;
 
     //Création d'un vector pour les parents des sommets, initializé à -1 par défaut
-    vector<int> vecteurParents(graphe_.getNbSommets(), -1);
+    // +1 pour que les index match le numéro du sommet
+    vector<int> vecteurParents(graphe_.getNbSommets()+1, -1);
 
     // On utilise une priority queue pour que le sommet le plus proche soit toujours au dessus de la file
     // Une pair contient <index, distance par rapport départ>
@@ -185,34 +187,36 @@ Trajet Algorithme::plusCourtChemin(int depart)
 
     // Debut de Dijkstra
     while (!queue.empty()) {
-        int indexSommetTopFile = queue.top().first;
+        int numeroSommetTopQueue = queue.top().first;
         int distanceSommetTopFile = queue.top().second;
         queue.pop(); // on retire le sommet le plus pres de la file
 
-        if (distanceSommetTopFile <= vecteurDistances[indexSommetTopFile]) {
+        if (distanceSommetTopFile <= vecteurDistances[numeroSommetTopQueue]) {
 
             //On passe a travers tout les sommets adjacents du sommet sur le top de la file
-            for (auto i : graphe_.getSommets()[indexSommetTopFile]->getSommetsAdjacents()) {
-                auto indexSommetCourant = i.first->getNumeroDuSommet();
+            for (auto i : graphe_.getSommets()[numeroSommetTopQueue-1]->getSommetsAdjacents()) {
+                auto numeroSommetCourant = i.first->getNumeroDuSommet();
                 auto distanceSommetCourant = i.second;
 
                 // Addition de la distance actuelle et de la distance du Sommet adjacent
-                int distAdditionSommetCourant = vecteurDistances[indexSommetTopFile] + distanceSommetCourant;
+                int distAdditionSommetCourant = vecteurDistances[numeroSommetTopQueue] + distanceSommetCourant;
 
                 // condition qui vérifiera, pour chaque Sommet adjacent, celui qui prendra le moins de temps (faible distance)
                 // A la fin de la boucle, on aura la distance la plus courte à l'index 
-                if (distAdditionSommetCourant < vecteurDistances[indexSommetCourant]) {
-                    vecteurDistances[indexSommetCourant] = distAdditionSommetCourant;
-                    vecteurParents[indexSommetCourant] = indexSommetTopFile;
-                    queue.push(make_pair(indexSommetCourant, vecteurDistances[indexSommetCourant]));
+                if (distAdditionSommetCourant < vecteurDistances[numeroSommetCourant]) {
+                    vecteurDistances[numeroSommetCourant] = distAdditionSommetCourant;
+                    vecteurParents[numeroSommetCourant] = numeroSommetTopQueue;
+                    queue.push(make_pair(numeroSommetCourant, vecteurDistances[numeroSommetCourant]));
                 }
             }
         }
     }
 
     // Boucle pour contruire le trajet au complet, de TOUS les sommets, à partir de 'depart'
+    trajet.listeSommetParcouru.push_back(graphe_.getSommets()[depart - 1]);
     for (auto i = vecteurParents[depart]; i != graphe_.getNbSommets(); i = vecteurParents[i]) {
-        trajet.listeSommetParcouru.push_back(graphe_.getSommets()[i]);
+        trajet.listeSommetParcouru.push_back(graphe_.getSommets()[i - 1]);
+        trajet.distanceTotale = vecteurDistances[arrive];
     }
 
 	return trajet;

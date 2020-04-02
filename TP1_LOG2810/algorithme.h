@@ -32,7 +32,7 @@ class Algorithme
 {
 public:
 	Algorithme();
-	Algorithme(Graphe graphe, Taxi taxi);
+	Algorithme(const Graphe& graphe,const Taxi& taxi);
 	~Algorithme();
 	vector<Trajet> getListeTrajetsPossible();
 	Graphe getGraphe();
@@ -50,7 +50,7 @@ public:
 	//bool comparerDistance(Trajet trajetAComparer,Trajet trajetDeLaListe);
 	//bool operator<(const Trajet& trajetAComparer); const
 
-	Trajet plusCourtChemin(int depart);
+	Trajet plusCourtChemin(int depart, int arrive);
 
 private:
 	vector<Trajet> listeTrajetsPossible_; // contient la liste des trajets possible

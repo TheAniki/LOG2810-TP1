@@ -1,2 +1,4 @@
-﻿  Test.cpp
+﻿  algorithme.cpp
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(144,43): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(165,9): warning C4101: 'sommetDepart': unreferenced local variable
   TP1_LOG2810.vcxproj -> \\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\x64\Debug\TP1_LOG2810.exe
