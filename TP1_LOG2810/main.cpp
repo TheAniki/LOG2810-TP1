@@ -127,17 +127,24 @@ void optionTraiterRequête()
 
 int main()
 {
-	Graphe graphe = Graphe("arrondissements.txt");
+	//Graphe graphe = Graphe("arrondissements.txt");
 	Taxi taxi = Taxi("requetes.txt");
 
-	graphe.miseAJourGraphe();
-	taxi.miseAjourRequetes();
+	//graphe.miseAJourGraphe();
+	//taxi.miseAjourRequetes();
+
+	Graphe graphe;
+	graphe.lireFichier("arrondissements.txt");
+	graphe.creerGraphe();
 
 	Algorithme algorithme(graphe, taxi);
+
+
+
+
 	//====================================================================================//
 	// methode de selectionnement du menu
 	char select, continu;
-	//Graphe graphe;
 
 
 	do  // force selection parmis les choix disponibles

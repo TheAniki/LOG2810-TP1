@@ -26,6 +26,10 @@ Graphe::~Graphe()
 {
 	EffacerTousSommets();
 }
+
+
+
+
 /****************************************************************************
   * Fonction: Graphe::getNomFichier
   * Description: Permet d'obtenir le nom du fichier
@@ -36,6 +40,10 @@ string Graphe::getNomFichier()
 {
 	return nomFichier_;
 }
+
+
+
+
 /****************************************************************************
   * Fonction: vector<Sommet*> Graphe::getSommets
   * Description: Permet d'obtenir la liste des sommets du graphe
@@ -46,6 +54,10 @@ const vector<Sommet*> Graphe::getSommets()
 {
 	return sommets_;
 }
+
+
+
+
 /****************************************************************************
   * Fonction: Graphe::getListeDonnees
   * Description: Permet d'obtenir la liste des données non traite du fichier
@@ -60,6 +72,9 @@ const vector<string> Graphe::getListeDonnees()
 const int Graphe::getNbSommets() { return nbSommets; }
 
 
+
+
+
 /****************************************************************************
   * Fonction: Graphe::modifierNomFichier
   * Description: Permet de modifier le nom du fichier 
@@ -70,6 +85,9 @@ const void Graphe::modifierNomFichier(const string& nouveauNomFichier)
 {
 	nomFichier_ = nouveauNomFichier;
 }
+
+
+
 /****************************************************************************
   * Fonction: Graphe::lireFichier
   * Description: Permet de lire les lignes du fichier puis 
@@ -101,6 +119,11 @@ void Graphe::lireFichier(string nomFichier)
 	}
 	fichier.close();
 }
+
+
+
+
+
 /****************************************************************************
   * Fonction: partieVoisin
   * Description: Fonction générale permettant de compter le nombre de virgule
@@ -121,6 +144,13 @@ bool partieVoisin(string ligne)
 	}
 	return (compteurVirgule == 2) ? true : false;
 }
+
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: partieSommet
   * Description: Fonction générale comptant le nombre de virgule afin de
@@ -142,6 +172,13 @@ bool partieSommet(string ligne)
 	}
 	return (compteurVirgule == 1) ? true : false;
 }
+
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: Graphe::creerGraphe
   * Description: Fonction crééant le graphe de façôn récursive grâce à 
@@ -151,43 +188,49 @@ bool partieSommet(string ligne)
   ****************************************************************************/
 void Graphe::creerGraphe()
 {
-		
-			if (partieVoisin(listeDonnees_[compteurLigne]))
-			{
-				vector<string> listeDonneeFichier = split(listeDonnees_[compteurLigne], ',');
+	if (partieVoisin(listeDonnees_[compteurLigne]))
+	{
+		vector<string> listeDonneeFichier = split(listeDonnees_[compteurLigne], ',');
 
-				int numSommetOrigine = convertStringtoInt(listeDonneeFichier[0]);
-				int numSommetAdjacent = convertStringtoInt(listeDonneeFichier[1]);
-				int temps = convertStringtoInt(listeDonneeFichier[2]);
+		int numSommetOrigine = convertStringtoInt(listeDonneeFichier[0]);
+		int numSommetAdjacent = convertStringtoInt(listeDonneeFichier[1]);
+		int temps = convertStringtoInt(listeDonneeFichier[2]);
 
-				Sommet* SommetOrigine = chercherSommet(numSommetOrigine);
-				Sommet* SommetAdjacent = chercherSommet(numSommetAdjacent);
+		Sommet* SommetOrigine = chercherSommet(numSommetOrigine);
+		Sommet* SommetAdjacent = chercherSommet(numSommetAdjacent);
 
-				SommetOrigine->ajouterSommetAdjacent(SommetAdjacent, temps);
-				SommetAdjacent->ajouterSommetAdjacent(SommetOrigine, temps);
-				compteurLigne++;				
-			}
-			else if(partieSommet(listeDonnees_[compteurLigne]))
-			{
-				vector<string> listeDonneeFichier = split(listeDonnees_[compteurLigne], ',');
+		SommetOrigine->ajouterSommetAdjacent(SommetAdjacent, temps);
+		SommetAdjacent->ajouterSommetAdjacent(SommetOrigine, temps);
+		compteurLigne++;				
+	}
+	else if(partieSommet(listeDonnees_[compteurLigne]))
+	{
+		vector<string> listeDonneeFichier = split(listeDonnees_[compteurLigne], ',');
 
-				int numeroSommet = convertStringtoInt(listeDonneeFichier[0]);
-				bool presenceborne = convertStringtoBool(listeDonneeFichier[1]);
-				Sommet* nouveauSommet = new Sommet(numeroSommet, presenceborne);
-				sommets_.push_back(nouveauSommet);
-				compteurLigne++;			
-				nbSommets++;  // incrémente nbSommets pour avoir total total (PL)
-			}			
-			if (compteurLigne < listeDonnees_.size())
-			{
-				creerGraphe();
-			}
-			else
-			{
-				return;
-			}		
-		
+		int numeroSommet = convertStringtoInt(listeDonneeFichier[0]);
+		bool presenceborne = convertStringtoBool(listeDonneeFichier[1]);
+		Sommet* nouveauSommet = new Sommet(numeroSommet, presenceborne);
+		sommets_.push_back(nouveauSommet);
+		compteurLigne++;			
+		nbSommets++;  // incrémente nbSommets pour avoir total total (PL)
+	}			
+	if (compteurLigne < listeDonnees_.size())
+	{
+		creerGraphe();
+	}
+	else
+	{
+		return;
+	}		
+	
 }
+
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: Graphe::AffichageGraphe
   * Description: Méthode permettant d'afficher le graphe sous la forme 
@@ -238,6 +281,13 @@ void Graphe::AffichageGraphe()
 
 	AffichageGraphe();
 }
+
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: Graphe::EffacerTousSommets
   * Description: Méthode permettant d'effacer tous les sommets de la liste de
@@ -249,10 +299,19 @@ void Graphe::EffacerTousSommets()
 {
 	for (auto it : sommets_)
 	{
+		it->EffacerTousSommetsAdjacents();
 		delete(it);		
 	}
 	sommets_.clear();
+	listeDonnees_.clear();
 }
+
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: Graphe::miseAJourGraphe
   * Description: Méthode contenant la séquence de la mise à jour du graphe
@@ -266,6 +325,14 @@ void Graphe::miseAJourGraphe()
 	lireFichier(nomFichier_);
 	creerGraphe();
 }
+
+
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: Graphe::chercherSommet
   * Description: Permet de chercher un sommet parmit la liste de sommets_
@@ -284,6 +351,12 @@ Sommet* Graphe::chercherSommet(int numeroSommet)
 	cout << "ERREUR : sommet " << numeroSommet << " non trouve" << endl;
 	return nullptr;
 }
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: split
   * Description: Fonction générale, permettant de séparer un string 
@@ -303,6 +376,12 @@ vector<string> split(const string& s, char delim) {
 
 	return result;
 }
+
+
+
+
+
+
 /****************************************************************************
   * Fonction: convertStringtoBool
   * Description: Permet de convertir le string en bool
@@ -313,6 +392,10 @@ bool convertStringtoBool(string ligne)
 {
 	return (ligne == "1") ? true : false;
 }
+
+
+
+
 /****************************************************************************
   * Fonction: convertStringtoInt
   * Description: Permet de convertir le string en int

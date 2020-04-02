@@ -52,7 +52,7 @@ private:
 	string nomFichier_;
 	vector<Sommet*> sommets_;
 	vector<string> listeDonnees_;
-	int nbSommets; // nbSommets total (PL)
+	int nbSommets; 
 };
 
 

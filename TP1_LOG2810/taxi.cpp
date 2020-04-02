@@ -39,9 +39,11 @@ void Taxi::EffacerTousRequetes()
 	{
 		delete(it);
 	}
-	listeRequete_.clear();
-	listeFichierRequete_.clear();
 
+	listeFichierRequete_.clear();
+	listeRequete_.clear();
+	listePassagersTaxi_.clear();
+	historiqueSommetsParcouru_.clear();
 }
 /****************************************************************************
   * Fonction: Taxi::miseAjourRequetes

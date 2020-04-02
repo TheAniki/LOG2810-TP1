@@ -11,7 +11,7 @@ Sommet::Sommet() : numeroDuSommet_(0),presenceBorne_(false) {
 }
 Sommet::~Sommet()
 {
-	
+ //   EffacerTousSommetsAdjacents();
 }
 Sommet::Sommet(int numeroDuSommet, bool presenceBorne) : numeroDuSommet_(numeroDuSommet) , presenceBorne_(presenceBorne)
 {
@@ -46,6 +46,27 @@ vector<pair<Sommet*, int>> Sommet::getSommetsAdjacents()
 {
 	return sommetsAdjacents_;
 }
+
+
+/****************************************************************************
+  * Fonction: Sommet::EffacerTousSommetsAdjacents
+  * Description: Méthode permettant d'effacer tous les sommets adjcents 
+                 de la liste de sommetsAdjacents_
+  * Paramètres: aucun
+  * Retour: aucun
+  ****************************************************************************/
+void Sommet::EffacerTousSommetsAdjacents()
+{
+    for (auto it : sommetsAdjacents_)
+    {
+        if (it.first != nullptr) {
+            it.first = nullptr;
+            delete(it.first);
+        }
+    }
+    sommetsAdjacents_.clear();
+}
+
 /****************************************************************************
   * Fonction: Sommet::ajouterSommetAdjacent
   * Description: Permet d'ajouter un sommetAdjacent et sa distance/temps

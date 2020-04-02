@@ -156,13 +156,13 @@ void Algorithme::trierListeSelonDistance()
   * Paramètres: numero du sommet de depart
   * Retour: le trajet le plus court pour franchir tous les sommets
   ****************************************************************************/
+  
 Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive)
 {
     //TODO : finir plusCourtChemin
     Trajet trajetDepartArrive;
 
     int infini = numeric_limits<int>::max();
-    int sommetDepart;
 
     // Fonction lambda de comparaison de distance, sera servi pour le priority_queue
     auto compareDistance = [](const pair<int, int>& a, const pair<int, int>& b) { return a.second > b.second; };
@@ -220,6 +220,7 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
     //    1. Ajout du sommet d'arrivé
     trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[numeroSommetArrive - 1]);
     trajetDepartArrive.distanceTotale = vecteurTemps[numeroSommetArrive];
+
     //    2. Ajout du sommet entre arrivé et départ, pushback du sommet parent de chacun des sommets courant
     for (auto i = vecteurParents[numeroSommetArrive]; i != numeroSommetDepart; i = vecteurParents[i]) {
         trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[i - 1]);
@@ -229,6 +230,8 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
     trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[numeroSommetDepart - 1]);
 
     listeTrajetsPossible_.push_back(trajetDepartArrive);
+
+
 
 	return trajetDepartArrive;
 }

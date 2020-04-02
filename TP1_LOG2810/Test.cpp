@@ -12,7 +12,7 @@ void exectuterTousLesTests(Graphe& graphe, Taxi& taxi, Algorithme& algorithme)
 
 
     //************** Test chemin le plus court **************
-
+    
     cout << "TEST 1: chemin le plus court:" << endl;
     int depart, arrive;
     cout << endl << "  Entrer le sommet de depart: ";
@@ -34,7 +34,7 @@ void exectuterTousLesTests(Graphe& graphe, Taxi& taxi, Algorithme& algorithme)
 
     //************** Fin Test chemin le plus court 
 
-
+    
 }
 
 

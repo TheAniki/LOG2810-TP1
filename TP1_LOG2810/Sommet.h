@@ -23,6 +23,7 @@ public:
 	//methode d'acces
 	int getNumeroDuSommet();
 	bool getPresenceBorne();
+	void EffacerTousSommetsAdjacents();
 	vector<pair<Sommet*, int>> getSommetsAdjacents();
 
 
