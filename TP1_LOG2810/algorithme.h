@@ -23,7 +23,7 @@ using namespace std;
 // structure Trajet utilise pour avoir des trajets dans la liste de trajets
 struct Trajet
 {
-	vector<Sommet> listeSommetParcouru;
+	vector<Sommet*> listeSommetParcouru;
 	int distanceTotale;	
 };
 

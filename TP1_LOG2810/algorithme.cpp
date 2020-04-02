@@ -150,16 +150,16 @@ void Algorithme::trierListeSelonDistance()
 
 /****************************************************************************
   * Fonction: Algorithme::plusCourtChemin
-  * Description: Permet de déterminer le chemin le plus court 
+  * Description: Permet de déterminer le chemin le plus court de tous les sommets
 				 en se basant sur l'algorithme de Dijkstra
-  * Paramètres: numero du sommet de depart et numero du sommet d'arrivee
-  * Retour: le trajet le plus court (idéalement^^)
+  * Paramètres: numero du sommet de depart
+  * Retour: le trajet le plus court pour franchir tous les sommets
   ****************************************************************************/
 Trajet Algorithme::plusCourtChemin(int depart, int arrivee)
 {
-	//TODO : finir plusCourtChemin
+    //TODO : finir plusCourtChemin
     Trajet trajet;
-    
+
     int infini = numeric_limits<int>::max();
     int sommetDepart;
 
@@ -179,7 +179,7 @@ Trajet Algorithme::plusCourtChemin(int depart, int arrivee)
     // Une pair contient <index, distance par rapport départ>
     priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compareDistance)> queue(compareDistance);
 
-    // On ajoute le sommet de départ à la file
+    // On ajoute le sommet de départ à la priority_queue
     queue.push(make_pair(depart, 0));
 
     // Debut de Dijkstra
@@ -194,13 +194,23 @@ Trajet Algorithme::plusCourtChemin(int depart, int arrivee)
                 auto indexSommetCourant = i.first->getNumeroDuSommet();
                 auto distanceSommetCourant = i.second;
 
-                if (vecteurDistances[indexSommetTopFile] + distanceSommetCourant < vecteurDistances[indexSommetCourant]) {
-                    vecteurDistances[indexSommetCourant] = vecteurDistances[indexSommetTopFile] + distanceSommetCourant;
+                // Addition de la distance actuelle et de la distance du Sommet adjacent
+                int distAdditionSommetCourant = vecteurDistances[indexSommetTopFile] + distanceSommetCourant;
+
+                // condition qui vérifiera, pour chaque Sommet adjacent, celui qui prendra le moins de temps (faible distance)
+                // A la fin de la boucle, on aura la distance la plus courte à l'index 
+                if (distAdditionSommetCourant < vecteurDistances[indexSommetCourant]) {
+                    vecteurDistances[indexSommetCourant] = distAdditionSommetCourant;
                     vecteurParents[indexSommetCourant] = indexSommetTopFile;
-                    queue.push(make_pair(indexSommetCourant,vecteurDistances[indexSommetCourant]));
+                    queue.push(make_pair(indexSommetCourant, vecteurDistances[indexSommetCourant]));
                 }
             }
         }
+    }
+
+    // Boucle pour contruire le trajet au complet, de TOUS les sommets, à partir de 'depart'
+    for (auto i = vecteurParents[depart]; i != graphe_.getNbSommets(); i = vecteurParents[i]) {
+        trajet.listeSommetParcouru.push_back(graphe_.getSommets()[i]);
     }
 
 	return trajet;

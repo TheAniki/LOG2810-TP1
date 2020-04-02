@@ -68,12 +68,12 @@ bool choixYesNo(char choix)
 	return false;
 }
 /****************************************************************************
-  * Fonction: MethodeDeLOptionA()
+  * Fonction: optionUpdateMap()
   * Description: Séquence pour l'option a
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void MethodeDeLOptionA()
+void optionUpdateMap()
 {
 	
 	Graphe graphe = Graphe("arrondissements.txt");
@@ -101,22 +101,22 @@ void MethodeDeLOptionA()
 		taxi.afficherRequetes();		
 }
 /****************************************************************************
-  * Fonction: MethodeDeLOptionB()
+  * Fonction: optionCheminPlusCourt()
   * Description: Séquence pour l'option b
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void MethodeDeLOptionB()
+void optionCheminPlusCourt()
 {
 
 }
 /****************************************************************************
-  * Fonction: MethodeDeLOptionC()
+  * Fonction: optionTraiterRequête()
   * Description: Séquence pour l'option c
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void MethodeDeLOptionC()
+void optionTraiterRequête()
 {
 
 }
@@ -141,13 +141,13 @@ int main()
 		switch (select)
 		{
 		case 'a':	cout << "Mettre a jouer la carte ." << endl;
-					MethodeDeLOptionA();		
+					optionUpdateMap();		
 			break;
 		case 'b' :	cout << "Determiner le plus court chemin securitaire. " << endl;
-					MethodeDeLOptionB();
+					optionCheminPlusCourt();
 			break;
 		case 'c' :	cout << "Traiter les requetes. " << endl;
-					MethodeDeLOptionC();
+					optionTraiterRequête();
 			break;
 		case 'd' : cout << "Quitter" << endl;
 			break;
