@@ -176,7 +176,7 @@ void Graphe::creerGraphe()
 				Sommet* nouveauSommet = new Sommet(numeroSommet, presenceborne);
 				sommets_.push_back(nouveauSommet);
 				compteurLigne++;			
-				nbSommets++;  // incréemente nbSommets pour avoir total total (PL)
+				nbSommets++;  // incrémente nbSommets pour avoir total total (PL)
 			}			
 			if (compteurLigne < listeDonnees_.size())
 			{
@@ -191,15 +191,15 @@ void Graphe::creerGraphe()
 /****************************************************************************
   * Fonction: Graphe::AffichageGraphe
   * Description: Méthode permettant d'afficher le graphe sous la forme 
-				 ----------------------------------
-				 Sommet : X | presenceBorne : oui/non
+				--------------------------------
+					        Sommet 19
 
-				 liste des sommets adjacents :
-				 Sommet : X  temps : Y
-				 .
-				 .
-				 .
-				 ----------------------------------
+				  Presence borne : non
+
+				  Liste des sommets adjacents :
+
+				    Sommet A: X min
+					Sommet B: Y min
 
   * Paramètres: aucun
   * Retour: aucun
@@ -209,31 +209,33 @@ void Graphe::AffichageGraphe()
 
 	if (compteur == 0)
 	{
-		cout << "|============================|" << endl;
-		cout << " Affichage Graphe : " << endl;
+		cout << "==============================" << endl;
+		cout << " Affichage Graphe : " << endl << endl;
 	}
 	// affichage sommet et borne 
-	cout << "----------------------------------" << endl;
+	cout << endl << "--------------------------------" << endl;
 	
-	cout << " Sommet : " << sommets_[compteur]->getNumeroDuSommet() << "| presenceBorne : ";
+	cout << "          Sommet " << sommets_[compteur]->getNumeroDuSommet() << endl << endl;
+	cout << "  Presence borne : ";
 	(sommets_[compteur]->getPresenceBorne()) ? (cout << "oui") : (cout << "non");
-	cout << endl;
+	
 	//affichage des voisins
-	cout << endl;
-	cout << " liste des sommets adjacents : " << endl;
+	cout << endl << endl << "  Liste des sommets adjacents : " << endl << endl;
+
 	for (auto i : sommets_[compteur]->getSommetsAdjacents())
 	{
-		cout << "   Sommet : " << i.first->getNumeroDuSommet() << " temps : " << i.second << endl;
+		cout << "      Sommet " << i.first->getNumeroDuSommet() << ": " << i.second << " min" << endl;
 	}
-	cout << "----------------------------------" << endl;
+
 	compteur++;
+	
 	if (compteur == NB_MAX_SOMMETS)
 	{
 		compteur = 0;
-		cout << "|============================|" << endl;
+		cout << endl << "==============================" << endl;
 		return;
-
 	}	
+
 	AffichageGraphe();
 }
 /****************************************************************************

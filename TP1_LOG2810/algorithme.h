@@ -18,13 +18,14 @@
 #include "Sommet.h"
 #include "Taxi.h"
 #include "Graphe.h"
+
 using namespace std;
 
 // structure Trajet utilise pour avoir des trajets dans la liste de trajets
 struct Trajet
 {
 	vector<Sommet*> listeSommetParcouru;
-	int distanceTotale;	
+	int distanceTotale;
 };
 
 

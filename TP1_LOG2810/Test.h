@@ -22,7 +22,7 @@
 //liste de test.
 
 
-void exectuterTousLesTests();
+void exectuterTousLesTests(Graphe& graphe, Taxi& taxi, Algorithme& algorithme);
 
 #endif // !TEST_H
 

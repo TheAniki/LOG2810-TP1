@@ -204,13 +204,14 @@ void Taxi::placerPassagerDansGraphe()
   ****************************************************************************/
 void Taxi::afficherRequetes()
 {
+
 	if (compteurAffichage < compteurRequete)
 	{	
 		
-		cout << " Id Passager " << listeRequete_[compteurAffichage]->getId() << " :"<< endl;
-		cout << "| Sommet De Depart :" << listeRequete_[compteurAffichage]->getSommetDepart()
-			<< " | Destination : " << listeRequete_[compteurAffichage]->getDestination()
-			<< " | temps : " << listeRequete_[compteurAffichage]->getTempsArrivee() << " |" << endl << endl;
+		cout << " Passager " << listeRequete_[compteurAffichage]->getId() << " :"<< endl;
+		cout << "    Sommet De Depart : " << listeRequete_[compteurAffichage]->getSommetDepart() << endl
+			<< "    Sommet De Destination : " << listeRequete_[compteurAffichage]->getDestination() << endl
+			<< "    Temps voulu maximum: " << listeRequete_[compteurAffichage]->getTempsArrivee() << " min"<< endl << endl;
 		compteurAffichage++;
 		afficherRequetes();
 	}
@@ -230,6 +231,7 @@ void Taxi::afficherRequetes()
   ****************************************************************************/
 void Taxi::afficherPassagerTaxi()
 {
+
 	
 	cout << listePassagersTaxi_[compteurPassager];
 

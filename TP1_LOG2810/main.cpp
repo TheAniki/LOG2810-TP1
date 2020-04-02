@@ -27,12 +27,13 @@ using namespace std;
   ****************************************************************************/
 void affichageOptions()
 {
-	cout << " Selectionner operation voulue : " << endl
-		<< " a : Mettre a jouer la carte ." << endl
-		<< " b : Determiner le plus court chemin securitaire. " << endl
-		<< " c : Traiter les requetes. " << endl
-		<< " d : Quitter. " << endl
-		<< " t : tests " << endl;
+	cout << endl
+		<< " A -> Mettre a jouer la carte" << endl
+		<< " B -> Determiner le plus court chemin securitaire" << endl
+		<< " C -> Traiter les requetes" << endl
+		<< " T -> Lancer les tests" << endl 
+		<< " Q -> QUITTER" << endl << endl
+		<< "Choisir option (A, B, C, T ou Q) : ";
 }
 /****************************************************************************
   * Fonction: choixPossible
@@ -43,11 +44,11 @@ void affichageOptions()
 
 bool choixPossible(char choix)
 {
-	if (choix == 'a') return true;
-	if (choix == 'b') return true;
-	if (choix == 'c') return true;
-	if (choix == 'd') return true;
-	if (choix == 't') return true;
+	if (choix == 'A') return true;
+	if (choix == 'B') return true;
+	if (choix == 'C') return true;
+	if (choix == 'Q') return true;
+	if (choix == 'T') return true;
 	return false;
 }
 /****************************************************************************
@@ -63,8 +64,8 @@ retourne false
 */
 bool choixYesNo(char choix)
 {
-	if (choix == 'y') return true;
-	if (choix == 'n') return true;
+	if (choix == 'Y') return true;
+	if (choix == 'N') return true;
 	return false;
 }
 /****************************************************************************
@@ -73,32 +74,35 @@ bool choixYesNo(char choix)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void optionUpdateMap()
+void optionUpdateMap(Graphe& graphe, Taxi& taxi)
 {
-	
-	Graphe graphe = Graphe("arrondissements.txt");
-	Taxi taxi = Taxi("requetes.txt");
 	char afficher;
 
-	graphe.miseAJourGraphe();
-	taxi.miseAjourRequetes();
+	cout << endl << "Voulez-vous afficher le graphe? (Y/N) ";
+	cin >> afficher;
+	cout << endl;
 
-	cout << " voulez-vous afficher le graphe? (y/n)" << endl;
-	cin >> afficher;
 	while (!choixYesNo(afficher))
 	{
 		cin >> afficher;
 	}
-	if (afficher == 'y')
+
+	if (afficher == 'Y')
 		graphe.AffichageGraphe();
-	cout << " voulez-vous afficher les requetes? (y/n)" << endl;
+	cout << endl << "Voulez-vous afficher les requetes? (Y/N) ";
 	cin >> afficher;
+	cout << endl;
 	while (!choixYesNo(afficher))
 	{
 		cin >> afficher;
 	}
-	if (afficher == 'y')
-		taxi.afficherRequetes();		
+	if (afficher == 'Y')
+		cout << "=================================" << endl;
+		cout << " Affichage de requetes: " << endl << endl;
+
+		taxi.afficherRequetes();
+		cout << "=================================" << endl;
+
 }
 /****************************************************************************
   * Fonction: optionCheminPlusCourt()
@@ -123,11 +127,19 @@ void optionTraiterRequête()
 
 int main()
 {
+	Graphe graphe = Graphe("arrondissements.txt");
+	Taxi taxi = Taxi("requetes.txt");
 
+	graphe.miseAJourGraphe();
+	taxi.miseAjourRequetes();
+
+	Algorithme algorithme(graphe, taxi);
 	//====================================================================================//
 	// methode de selectionnement du menu
-	char select, continu, afficher;
-	Graphe graphe;
+	char select, continu;
+	//Graphe graphe;
+
+
 	do  // force selection parmis les choix disponibles
 	{
 		system("CLS");
@@ -136,46 +148,56 @@ int main()
 	} while (!choixPossible(select));
 	
 		
-	while (select != 'd')
+	while (select != 'Q')
 	{
 		switch (select)
 		{
-		case 'a':	cout << "Mettre a jouer la carte ." << endl;
-					optionUpdateMap();		
+		case 'A':	
+					cout << endl << "   Choix: Mettre a jouer la carte" << endl;
+					optionUpdateMap(graphe, taxi);		
+
+
 			break;
-		case 'b' :	cout << "Determiner le plus court chemin securitaire. " << endl;
+		case 'B' :	
+					cout << endl << "   Choix: Determiner le plus court chemin securitaire" << endl;
 					optionCheminPlusCourt();
 			break;
-		case 'c' :	cout << "Traiter les requetes. " << endl;
+		case 'C' :	
+					cout << endl << "   Choix:  les requetes" << endl;
 					optionTraiterRequête();
 			break;
-		case 'd' : cout << "Quitter" << endl;
+
+
+		case 'T': 
+					 cout << endl << "****************** Debut des tests ******************" << endl << endl;
+				     exectuterTousLesTests(graphe, taxi, algorithme);
+
+		case 'Q':
+			cout << endl << "   Choix: Quitter" << endl;
 			break;
-		case 't': cout << "test" << endl; // si besoin
-				  exectuterTousLesTests();
 
 		default:						
 			break;
 		}
-		if (select != 'd'){
+		if (select != 'Q'){
 
 				do // force selection entre y et n
 				{
-					cout << "continue? (y/n)" << endl;
+					cout << endl << "Retourner au menu principal? (Y/N) ";
 					cin >> continu;
 
 				} while (!choixYesNo(continu));				
 
-				if (continu == 'y')
+				if (continu == 'Y')
 				{
 					system("CLS");
 					affichageOptions();
 					cin >> select;
 				}
-				if (continu == 'n')
+				if (continu == 'N')
 				{
 					system("CLS");
-					select = 'd';
+					select = 'Q';
 				}			
 		}		
 		
