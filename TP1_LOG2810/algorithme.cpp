@@ -186,15 +186,18 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
     queue.push(make_pair(numeroSommetDepart, 0));
 
     // Debut de Dijkstra
-    while (!queue.empty()) {
-        int numeroSommetTopQueue = queue.top().first;
-        int tempsSommetTopQueue = queue.top().second;
-        queue.pop(); // on retire le sommet le plus pres de la file
+    int numeroSommetTopQueue = queue.top().first;
+    int tempsSommetTopQueue = queue.top().second;
+
+    while (numeroSommetTopQueue != numeroSommetArrive) {
+        numeroSommetTopQueue = queue.top().first;
+        tempsSommetTopQueue = queue.top().second;
+        queue.pop(); // on retire le sommet dont le temps est connu
 
         if (tempsSommetTopQueue <= vecteurTemps[numeroSommetTopQueue]) {
 
             //On passe a travers tout les sommets adjacents du sommet sur le top de la file
-            for (auto i : graphe_.getSommets()[numeroSommetTopQueue-1]->getSommetsAdjacents()) {
+            for (auto i : graphe_.getSommets()[numeroSommetTopQueue - 1]->getSommetsAdjacents()) {
                 auto numeroSommetCourant = i.first->getNumeroDuSommet();
                 auto tempsSommetCourant = i.second;
 
@@ -210,16 +213,16 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
                 }
             }
         }
+        
     }
 
     // Boucle pour contruire le trajet au complet, entre départ et arrivé
     //    1. Ajout du sommet d'arrivé
     trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[numeroSommetArrive - 1]);
-
+    trajetDepartArrive.distanceTotale = vecteurTemps[numeroSommetArrive];
     //    2. Ajout du sommet entre arrivé et départ, pushback du sommet parent de chacun des sommets courant
     for (auto i = vecteurParents[numeroSommetArrive]; i != numeroSommetDepart; i = vecteurParents[i]) {
         trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[i - 1]);
-        trajetDepartArrive.distanceTotale = vecteurTemps[numeroSommetArrive];
     }
 
     //    3. Ajout du sommet de départ

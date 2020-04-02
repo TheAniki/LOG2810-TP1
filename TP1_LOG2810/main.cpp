@@ -29,7 +29,7 @@ void affichageOptions()
 {
 	cout << endl
 		<< " A -> Mettre a jouer la carte" << endl
-		<< " B -> Determiner le plus court chemin securitaire" << endl
+		<< " B -> Determiner le plus court chemin" << endl
 		<< " C -> Traiter les requetes" << endl
 		<< " T -> Lancer les tests" << endl 
 		<< " Q -> QUITTER" << endl << endl
@@ -152,29 +152,42 @@ int main()
 	{
 		switch (select)
 		{
+
+		// Sélection Update map
 		case 'A':	
 					cout << endl << "   Choix: Mettre a jouer la carte" << endl;
 					optionUpdateMap(graphe, taxi);		
-
-
 			break;
+
+
+		// Sélection Chemin plus court
 		case 'B' :	
-					cout << endl << "   Choix: Determiner le plus court chemin securitaire" << endl;
+					cout << endl << "   Choix: Determiner le plus court chemin" << endl;
 					optionCheminPlusCourt();
 			break;
+
+
+
+		// Sélection Traiter requêtes
 		case 'C' :	
-					cout << endl << "   Choix:  les requetes" << endl;
+					cout << endl << "   Choix: Traiter les requetes" << endl;
 					optionTraiterRequête();
 			break;
 
 
-		case 'T': 
+		// Sélection Tests
+		case 'T':
 					 cout << endl << "****************** Debut des tests ******************" << endl << endl;
 				     exectuterTousLesTests(graphe, taxi, algorithme);
+			break;
 
+
+		// Sélection Quitter
 		case 'Q':
 			cout << endl << "   Choix: Quitter" << endl;
 			break;
+
+
 
 		default:						
 			break;

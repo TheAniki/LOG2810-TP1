@@ -30,6 +30,7 @@ void exectuterTousLesTests(Graphe& graphe, Taxi& taxi, Algorithme& algorithme)
     }
     cout << endl << "     Distance: ";
     cout << algorithme.getListeTrajetsPossible()[0].distanceTotale << endl;
+    algorithme.EffacerTousLesTrajets();
 
     //************** Fin Test chemin le plus court 
 
