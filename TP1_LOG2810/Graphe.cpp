@@ -95,9 +95,9 @@ const void Graphe::modifierNomFichier(const string& nouveauNomFichier)
   * Paramètres: le nom du fichier (string)
   * Retour: aucun
   ****************************************************************************/
-void Graphe::lireFichier(string nomFichier)
+void Graphe::lireFichier()
 {
-	ifstream fichier(nomFichier);
+	ifstream fichier(nomFichier_);
 	if (fichier.fail()) {
 
 		cout << "ECHEC : Ouverture du fichier" << endl;
@@ -299,11 +299,13 @@ void Graphe::EffacerTousSommets()
 {
 	for (auto it : sommets_)
 	{
-		it->EffacerTousSommetsAdjacents();
-		delete(it);		
+		if (it != nullptr) {
+			it->EffacerTousSommetsAdjacents();
+			it = nullptr;
+			delete it;
+		}
 	}
 	sommets_.clear();
-	listeDonnees_.clear();
 }
 
 
@@ -322,7 +324,7 @@ void Graphe::miseAJourGraphe()
 {
 	EffacerTousSommets();
 	compteurLigne = 0;
-	lireFichier(nomFichier_);
+	lireFichier();
 	creerGraphe();
 }
 

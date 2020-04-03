@@ -10,7 +10,7 @@
 Algorithme::Algorithme()
 {
 }
-Algorithme::Algorithme(const Graphe& graphe, const Taxi& taxi) : graphe_(graphe), taxi_(taxi)
+Algorithme::Algorithme(const Graphe& graphe, const Taxi& taxi) : graphe(graphe), taxi(taxi)
 {
 
     
@@ -19,6 +19,7 @@ Algorithme::Algorithme(const Graphe& graphe, const Taxi& taxi) : graphe_(graphe)
 Algorithme::~Algorithme()
 {
 	EffacerTousLesTrajets();
+
 }
 /****************************************************************************
   * Fonction: Algorithme::getListeTrajetsPossible
@@ -38,7 +39,7 @@ vector<Trajet> Algorithme::getListeTrajetsPossible()
   ****************************************************************************/
 Graphe Algorithme::getGraphe()
 {
-	return graphe_;
+	return graphe;
 }
 /****************************************************************************
   * Fonction: Algorithme::getTaxi
@@ -48,7 +49,7 @@ Graphe Algorithme::getGraphe()
   ****************************************************************************/
 Taxi Algorithme::getTaxi()
 {
-	return taxi_;
+	return taxi;
 }
 /****************************************************************************
   * Fonction: Algorithme::ajouterTrajet
@@ -159,7 +160,6 @@ void Algorithme::trierListeSelonDistance()
   
 Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive)
 {
-    //TODO : finir plusCourtChemin
     Trajet trajetDepartArrive;
 
     int infini = numeric_limits<int>::max();
@@ -169,14 +169,14 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
 
     //vector des distances, de taille NB_MAX_SOMMETS+1, initializé à infini  par défaut
     // +1 pour que les index match le numéro du sommet
-    vector<int> vecteurTemps(graphe_.getNbSommets()+1, infini);
+    vector<int> vecteurTemps(graphe.getNbSommets()+1, infini);
 
     //Sommet de départ possède une distance = 0
     vecteurTemps[numeroSommetDepart] = 0;
 
     //Création d'un vector pour les parents des sommets, initializé à -1 par défaut
     // +1 pour que les index match le numéro du sommet
-    vector<int> vecteurParents(graphe_.getNbSommets()+1, -1);
+    vector<int> vecteurParents(graphe.getNbSommets()+1, -1);
 
     // On utilise une priority queue pour que le sommet le plus proche soit toujours au dessus de la file
     // Une pair contient <index, distance par rapport départ>
@@ -197,7 +197,7 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
         if (tempsSommetTopQueue <= vecteurTemps[numeroSommetTopQueue]) {
 
             //On passe a travers tout les sommets adjacents du sommet sur le top de la file
-            for (auto i : graphe_.getSommets()[numeroSommetTopQueue - 1]->getSommetsAdjacents()) {
+            for (auto i : graphe.getSommets()[numeroSommetTopQueue - 1]->getSommetsAdjacents()) {
                 auto numeroSommetCourant = i.first->getNumeroDuSommet();
                 auto tempsSommetCourant = i.second;
 
@@ -218,18 +218,20 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
 
     // Boucle pour contruire le trajet au complet, entre départ et arrivé
     //    1. Ajout du sommet d'arrivé
-    trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[numeroSommetArrive - 1]);
+    trajetDepartArrive.listeSommetParcouru.push_back(graphe.getSommets()[numeroSommetArrive - 1]);
     trajetDepartArrive.distanceTotale = vecteurTemps[numeroSommetArrive];
 
     //    2. Ajout du sommet entre arrivé et départ, pushback du sommet parent de chacun des sommets courant
     for (auto i = vecteurParents[numeroSommetArrive]; i != numeroSommetDepart; i = vecteurParents[i]) {
-        trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[i - 1]);
+        trajetDepartArrive.listeSommetParcouru.push_back(graphe.getSommets()[i - 1]);
     }
 
     //    3. Ajout du sommet de départ
-    trajetDepartArrive.listeSommetParcouru.push_back(graphe_.getSommets()[numeroSommetDepart - 1]);
+    trajetDepartArrive.listeSommetParcouru.push_back(graphe.getSommets()[numeroSommetDepart - 1]);
 
+    // Ajout dans conteneur de trajet
     listeTrajetsPossible_.push_back(trajetDepartArrive);
+
 
 
 

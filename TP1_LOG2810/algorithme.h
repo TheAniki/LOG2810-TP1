@@ -33,7 +33,7 @@ class Algorithme
 {
 public:
 	Algorithme();
-	Algorithme(const Graphe& graphe,const Taxi& taxi);
+	Algorithme(const Graphe& graphe, const Taxi& taxi);
 	~Algorithme();
 	vector<Trajet> getListeTrajetsPossible();
 	Graphe getGraphe();
@@ -55,8 +55,8 @@ public:
 
 private:
 	vector<Trajet> listeTrajetsPossible_; // contient la liste des trajets possible
-	Graphe graphe_;
-	Taxi taxi_;
+	Graphe graphe;
+	Taxi taxi;
 };
 
 

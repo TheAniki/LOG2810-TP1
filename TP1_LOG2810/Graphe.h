@@ -44,7 +44,7 @@ public:
 	void AffichageGraphe();
 	void EffacerTousSommets();
 	void miseAJourGraphe();
-	void lireFichier(string);
+	void lireFichier();
 	
 	Sommet* chercherSommet(int numeroSommet);	
 

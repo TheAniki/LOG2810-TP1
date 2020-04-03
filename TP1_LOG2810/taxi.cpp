@@ -24,6 +24,9 @@ Taxi::Taxi(string nomFichier): nomFichier_(nomFichier), positionDeDepart_(0),ene
 Taxi::~Taxi()
 {
 	EffacerTousRequetes();	
+	listeFichierRequete_.clear();
+	listePassagersTaxi_.clear();
+	historiqueSommetsParcouru_.clear();
 }
 /****************************************************************************
   * Fonction: Taxi::EffacerTousRequetes
@@ -37,13 +40,13 @@ void Taxi::EffacerTousRequetes()
 	
 	for (auto it : listeRequete_)
 	{
-		delete(it);
-	}
+		if (it != nullptr) {
+			it = nullptr;
+			delete it;
+		}
 
-	listeFichierRequete_.clear();
+	}
 	listeRequete_.clear();
-	listePassagersTaxi_.clear();
-	historiqueSommetsParcouru_.clear();
 }
 /****************************************************************************
   * Fonction: Taxi::miseAjourRequetes
