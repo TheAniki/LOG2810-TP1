@@ -52,6 +52,7 @@ private:
 	string nomFichier_;
 	vector<Sommet*> sommets_;
 	vector<string> listeDonnees_;
+	vector<int> sommetsRecharge_;
 	int nbSommets; 
 };
 

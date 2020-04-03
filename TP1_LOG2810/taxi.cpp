@@ -12,11 +12,11 @@ unsigned int compteurAffichage = 0;
 unsigned int compteurPassager = 0;
 
 
-Taxi::Taxi(): energieRestante_(100),positionDeDepart_(0)
+Taxi::Taxi(): batterieRestante_(100),positionDeDepart_(0)
 {
 }
 
-Taxi::Taxi(string nomFichier): nomFichier_(nomFichier), positionDeDepart_(0),energieRestante_(100)
+Taxi::Taxi(string nomFichier): nomFichier_(nomFichier), positionDeDepart_(0),batterieRestante_(100)
 {
 	
 }
@@ -28,6 +28,14 @@ Taxi::~Taxi()
 	listePassagersTaxi_.clear();
 	historiqueSommetsParcouru_.clear();
 }
+
+
+const int Taxi::getBatterieRestante()
+{
+	return batterieRestante_;
+}
+
+
 /****************************************************************************
   * Fonction: Taxi::EffacerTousRequetes
   * Description: Permet d'effacer toutes les requêtes de la listeRequete_ 
@@ -121,7 +129,7 @@ void Taxi::enleverPassager(Passager passager)
   ****************************************************************************/
 void Taxi::chargerTaxi()
 {
-	energieRestante_ = 100;
+	batterieRestante_ = 100;
 	//enleve 10 min a tous les passagers
 	for (auto it : listePassagersTaxi_)
 	{
@@ -134,9 +142,9 @@ void Taxi::chargerTaxi()
   * Paramètres: un integer energie
   * Retour: aucun
   ****************************************************************************/
-void Taxi::modificationEnergieRestante(int energie)
+void Taxi::miseAJourBatterie(int distanceParcouru)
 {
-	energieRestante_ = energie;
+	batterieRestante_ = batterieRestante_ - distanceParcouru;
 }
 
 /****************************************************************************

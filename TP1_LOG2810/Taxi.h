@@ -17,9 +17,6 @@
 #include "Passager.h"
 #include "Graphe.h"
 using namespace std;
-//int autonomie = 100; // 100% d'autonomie;
-
-
 
 class Taxi : public Graphe , public Sommet
 {
@@ -27,39 +24,38 @@ public:
 	Taxi();
 	Taxi(string nomFichier);
 	~Taxi();
-	//mise a jour requete
+
+	// Requetes
 	void EffacerTousRequetes();
 	void miseAjourRequetes();
 
-
+	// Passagers
 	void ajouterPassager(Passager passager);
 	void ajouterSommet(Sommet sommet);
 	void enleverPassager(Passager passager);
 
+	// Batteries
+	const int getBatterieRestante();
 	void chargerTaxi();
-	void modificationEnergieRestante(int energie);
+	void miseAJourBatterie(int distanceParcouru);
 
-	//bool trierSelonId(Passager passager1, Passager passager2);
-
-	//bool operator<(Passager& passager1, Passager& passager2);
-
-	//methode lecture requete;
+	
+	// methode lecture requete;
 	void lireFichier();
 	void placerPassagerDansGraphe();
 
-	//methode affichage
+	// methode affichage
 	void afficherRequetes();
 	void afficherPassagerTaxi();
 
 	void trierSelonId();
 
 private:
-	int energieRestante_;
+	int batterieRestante_;
 	int positionDeDepart_;
 	string nomFichier_;
 	vector<string> listeFichierRequete_;
 	vector<Passager*> listeRequete_;
-
 	vector<Passager> listePassagersTaxi_;
 	vector<Sommet> historiqueSommetsParcouru_;
 };

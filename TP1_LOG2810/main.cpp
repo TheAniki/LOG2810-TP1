@@ -79,7 +79,7 @@ void optionUpdateMap(Graphe& graphe, Taxi& taxi)
 {
 	char afficher;
 
-	cout << endl << "Voulez-vous afficher le graphe? (Y/N) ";
+	cout << endl << "   1. Voulez-vous afficher le graphe? (Y/N) ";
 	cin >> afficher;
 	afficher = toupper(afficher);
 	cout << endl;
@@ -92,9 +92,11 @@ void optionUpdateMap(Graphe& graphe, Taxi& taxi)
 
 	if (afficher == 'Y')
 		graphe.AffichageGraphe();
-	cout << endl << "Voulez-vous afficher les requetes? (Y/N) ";
+	cout << endl << "   2. Voulez-vous afficher les requetes? (Y/N) ";
+
 	cin >> afficher;
 	afficher = toupper(afficher);
+
 	cout << endl;
 	while (!choixYesNo(afficher))
 	{
@@ -115,8 +117,17 @@ void optionUpdateMap(Graphe& graphe, Taxi& taxi)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void optionCheminPlusCourt()
+void optionCheminPlusCourt(Algorithme& algorithme)
 {
+
+	int depart, arrive;
+	cout << endl << "   1. Entrer le sommet de depart: ";
+	cin >> depart;
+	cout << "   2. Entrer le sommet d'arrive: ";
+	cin >> arrive;
+
+	algorithme.plusCourtChemin(depart, arrive);
+	algorithme.EffacerTousLesTrajets();
 
 }
 /****************************************************************************
@@ -144,50 +155,58 @@ int main()
 
 
 
-
-	//====================================================================================//
 	// methode de selectionnement du menu
-	char select, continu;
+	char charSelect, charContinu;
 
 
 	do  // force selection parmis les choix disponibles
 	{
 		system("CLS");
 		affichageOptions();
-		cin >> select;
-		select = toupper(select);
-	} while (!choixPossible(select));
+
+		cin >> charSelect;
+		charSelect = toupper(charSelect);
+
+	} while (!choixPossible(charSelect));
 	
 		
-	while (select != 'D')
+	while (charSelect != 'D')
 	{
-		switch (select)
+		switch (charSelect)
 		{
 
 		// Sélection Update map
 		case 'A':	
-					cout << endl << "   Choix: Mettre a jouer la carte" << endl;
-					optionUpdateMap(graphe, taxi);		
+			cout << endl << "   --------------------------" << endl
+			<< "   A) Mettre a jouer la carte" << endl
+			<< "   --------------------------" << endl;
+			optionUpdateMap(graphe, taxi);		
 			break;
 
 
 		// Sélection Chemin plus court
 		case 'B' :	
-					cout << endl << "   Choix: Determiner le plus court chemin securitaire" << endl;
-					optionCheminPlusCourt();
+
+			cout << endl << "   ----------------------------------------------" << endl
+				<< "   B) Determiner le plus court chemin securitaire" << endl
+				<< "   ----------------------------------------------" << endl;
+			optionCheminPlusCourt(algorithme);
 			break;
 
 
 
 		// Sélection Traiter requêtes
 		case 'C' :	
-					cout << endl << "   Choix: Traiter les requetes" << endl;
-					optionTraiterRequête();
+
+			cout << endl << "   -----------------------" << endl
+				<< "   C) Traiter les requetes" << endl
+				<< "   -----------------------" << endl;
+			optionTraiterRequête();
 			break;
 
 		// Sélection Quitter
 		case 'D':
-					cout << endl << "   Choix: Quitter" << endl;
+					cout << endl << "   D) Quitter" << endl;
 			break;
 
 		// Sélection Tests
@@ -196,36 +215,32 @@ int main()
 				     exectuterTousLesTests(graphe, taxi, algorithme);
 			break;
 
-
-
-
-
-
 		default:						
 			break;
 		}
-		if (select != 'D'){
+		if (charSelect != 'D'){
 
 				do // force selection entre y et n
 				{
 					cout << endl << "Retourner au menu principal? (Y/N) ";
-					cin >> continu;
-					continu = toupper(continu);
+					cin >> charContinu;
+					charContinu = toupper(charContinu);
+			
 
-				} while (!choixYesNo(continu));				
+				} while (!choixYesNo(charContinu));				
 
-				if (continu == 'Y')
+				if (charContinu == 'Y')
 				{
 					system("CLS");
 					affichageOptions();
-					cin >> select;
-					continu = toupper(continu);
+					cin >> charSelect;
+					charSelect = toupper(charSelect);
 
 				}
-				if (continu == 'N')
+				if (charContinu == 'N')
 				{
 					system("CLS");
-					select = 'D';
+					charSelect = 'D';
 				}			
 		}		
 		

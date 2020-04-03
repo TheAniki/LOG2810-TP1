@@ -22,14 +22,7 @@ void exectuterTousLesTests(Graphe& graphe, Taxi& taxi, Algorithme& algorithme)
 
     algorithme.plusCourtChemin(depart, arrive);
 
-    cout << endl << "     Chemin le plus court pour s'y rendre: ";
-    for (int i = algorithme.getListeTrajetsPossible()[0].listeSommetParcouru.size()-1; i >= 0; i--) {
-        cout << algorithme.getListeTrajetsPossible()[0].listeSommetParcouru[i]->getNumeroDuSommet();
-        if (i != 0)
-            cout << "->";
-    }
-    cout << endl << "     Distance: ";
-    cout << algorithme.getListeTrajetsPossible()[0].distanceTotale << endl;
+
     algorithme.EffacerTousLesTrajets();
 
     //************** Fin Test chemin le plus court 

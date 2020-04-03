@@ -210,6 +210,11 @@ void Graphe::creerGraphe()
 		int numeroSommet = convertStringtoInt(listeDonneeFichier[0]);
 		bool presenceborne = convertStringtoBool(listeDonneeFichier[1]);
 		Sommet* nouveauSommet = new Sommet(numeroSommet, presenceborne);
+
+		if (presenceborne) {
+			sommetsRecharge_.push_back(numeroSommet);
+		}
+
 		sommets_.push_back(nouveauSommet);
 		compteurLigne++;			
 		nbSommets++;  // incrémente nbSommets pour avoir total total (PL)
