@@ -26,6 +26,7 @@ public:
 	const int getTempsArrivee();
 	const int getDestination();
 	const int getSommetDepart();
+	const int getSommetArrive();
 	const int getId();
 
 	void modifierTemps(int tempsAretirer);
@@ -37,7 +38,7 @@ private:
 	int id_; // identifiant
 	int tempsArrivee_; // temps limite.	
 	int sommetDepart_; // numero du sommet de depart.
-	int destination_; // numero du sommet a atteindre.
+	int sommetArrive_; // numero du sommet a atteindre.
 };
 
 

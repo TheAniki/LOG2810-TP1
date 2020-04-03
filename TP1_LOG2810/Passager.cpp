@@ -7,11 +7,11 @@
 #include "Passager.h"
 
 Passager::Passager() : id_(0), sommetDepart_(0),
-destination_(0), tempsArrivee_(0)
+	sommetArrive_(0), tempsArrivee_(0)
 {
 }
 Passager::Passager(int id, int sommetDepart, int destination, int tempsArrivee) : id_(id), sommetDepart_(sommetDepart),
-	destination_(destination), tempsArrivee_(tempsArrivee)
+	sommetArrive_(destination), tempsArrivee_(tempsArrivee)
 {
 
 }
@@ -20,46 +20,37 @@ Passager::~Passager()
 	
 }
 
-/****************************************************************************
-  * Fonction: Passager::getTempsArrivee
-  * Description: Permet d'obtenir le tempsArrivee désirer du passger
-  * Paramètres: aucun
-  * Retour: tempsArrivee du passager
-  ****************************************************************************/
+//***************************************************************************
+//Getters
+//***************************************************************************
+
 const int Passager::getTempsArrivee()
 {
 	return tempsArrivee_;
 }
-/****************************************************************************
-  * Fonction: Passager::getDestination
-  * Description: Permet d'obtenir le numero du sommet de destination du passager
-  * Paramètres: aucun
-  * Retour: destination_
-  ****************************************************************************/
+
 const int Passager::getDestination()
 {
-	return destination_;
+	return sommetArrive_;
 }
-/****************************************************************************
-  * Fonction: Passager::getSommetDepart
-  * Description: Permet d'obtenir le Sommet de départ du passager
-  * Paramètres: aucun
-  * Retour: sommetDepart_
-  ****************************************************************************/
+
 const int Passager::getSommetDepart()
 {
 	return sommetDepart_;
 }
-/****************************************************************************
-  * Fonction:  Passager::getId
-  * Description: Permet d'obtenir l'identifiant du passager
-  * Paramètres: aucun
-  * Retour: id_
-  ****************************************************************************/
+
+const int Passager::getSommetArrive()
+{
+	return sommetArrive_;
+}
+
 const int Passager::getId()
 {
 	return id_;
 }
+
+
+
 /****************************************************************************
   * Fonction: Passager::modifierTemps
   * Description: Permet de modifier le tempsArrivee
@@ -86,7 +77,7 @@ bool Passager::operator==(const Passager& passager) const
 	return (
 		id_ == passager.id_ &&
 		sommetDepart_ == passager.sommetDepart_ &&
-		destination_ == passager.destination_ &&
+		sommetArrive_ == passager.sommetArrive_ &&
 		tempsArrivee_ == passager.tempsArrivee_
 		);
 }
@@ -101,7 +92,7 @@ ostream& operator<<(ostream& o, const Passager& unPassager)
 {
 	return o << " Passager # " << unPassager.id_ 
 		<< " | Sommet de depart: " << unPassager.sommetDepart_ 
-		<< " | Destination : " << unPassager.destination_ 
+		<< " | Destination : " << unPassager.sommetArrive_
 		<< " | tempsRestant : " << unPassager.tempsArrivee_ << endl;
 	if (unPassager.tempsArrivee_ <= 0)
 	{

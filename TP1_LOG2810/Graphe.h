@@ -32,10 +32,13 @@ public:
 	~Graphe();
 
 	//methode d'acces
-	string getNomFichier(); const
-	vector<Sommet*> getSommets(); const
-	int getNbSommets(); const
-	vector<string> getListeDonnees(); const
+	const string getNomFichier();
+	const vector<Sommet*> getSommets();
+	const int getNbSommets();
+	const vector<string> getListeDonnees();
+	const vector<int> getSommetsRecharge();
+
+
 	//methode modification
 	void modifierNomFichier(const string& nouveauNomFichier);
 	
@@ -52,7 +55,7 @@ private:
 	string nomFichier_;
 	vector<Sommet*> sommets_;
 	vector<string> listeDonnees_;
-	vector<int> sommetsRecharge_;
+	vector<int> listeSommetsRecharge_;
 	int nbSommets; 
 };
 

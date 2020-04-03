@@ -30,50 +30,35 @@ Graphe::~Graphe()
 
 
 
-/****************************************************************************
-  * Fonction: Graphe::getNomFichier
-  * Description: Permet d'obtenir le nom du fichier
-  * Paramètres: aucun
-  * Retour: nom du fichier
-  ****************************************************************************/
-string Graphe::getNomFichier()
+//****************************************************************************
+//Getters
+//****************************************************************************
+const string Graphe::getNomFichier()
 {
 	return nomFichier_;
 }
 
 
-
-
-/****************************************************************************
-  * Fonction: vector<Sommet*> Graphe::getSommets
-  * Description: Permet d'obtenir la liste des sommets du graphe
-  * Paramètres:  aucun
-  * Retour: liste des sommets, sommets_
-  ****************************************************************************/
 const vector<Sommet*> Graphe::getSommets()
 {
 	return sommets_;
 }
 
 
+const int Graphe::getNbSommets() 
+{
+	return nbSommets; 
+}
 
 
-/****************************************************************************
-  * Fonction: Graphe::getListeDonnees
-  * Description: Permet d'obtenir la liste des données non traite du fichier
-  * Paramètres: aucun
-  * Retour: liste des donnees du fichier, listeDonnees_
-  ****************************************************************************/
 const vector<string> Graphe::getListeDonnees()
 {
 	return listeDonnees_;
 }
 
-const int Graphe::getNbSommets() { return nbSommets; }
-
-
-
-
+const vector<int> Graphe::getSommetsRecharge() {
+	return listeSommetsRecharge_;
+}
 
 /****************************************************************************
   * Fonction: Graphe::modifierNomFichier
@@ -81,7 +66,7 @@ const int Graphe::getNbSommets() { return nbSommets; }
   * Paramètres: string nouveauNomFichier
   * Retour: aucun
   ****************************************************************************/
-const void Graphe::modifierNomFichier(const string& nouveauNomFichier)
+void Graphe::modifierNomFichier(const string& nouveauNomFichier)
 {
 	nomFichier_ = nouveauNomFichier;
 }
@@ -212,12 +197,12 @@ void Graphe::creerGraphe()
 		Sommet* nouveauSommet = new Sommet(numeroSommet, presenceborne);
 
 		if (presenceborne) {
-			sommetsRecharge_.push_back(numeroSommet);
+			listeSommetsRecharge_.push_back(numeroSommet);
 		}
 
 		sommets_.push_back(nouveauSommet);
 		compteurLigne++;			
-		nbSommets++;  // incrémente nbSommets pour avoir total total (PL)
+		nbSommets++; 
 	}			
 	if (compteurLigne < listeDonnees_.size())
 	{

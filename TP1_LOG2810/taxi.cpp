@@ -29,10 +29,38 @@ Taxi::~Taxi()
 	historiqueSommetsParcouru_.clear();
 }
 
-
+//****************************************************************************
+//Getters
+//****************************************************************************
 const int Taxi::getBatterieRestante()
 {
 	return batterieRestante_;
+}
+
+const int Taxi::getPositionDepart()
+{
+	return positionDeDepart_;
+}
+
+const int Taxi::getPositionActuelle()
+{
+	return positionActuelle_;
+}
+
+
+void Taxi::setNumeroActuel(int numeroDestination)  {
+	positionActuelle_ = numeroDestination;
+}
+
+
+/****************************************************************************
+  * Fonction: Taxi::getListeRequetes
+  * Description: Permet d'acceder à la liste des requêtes importée
+  * Paramètres: aucun
+  * Retour: Liste des requêtes, provenant du fichier
+  ****************************************************************************/
+const vector<Passager*> Taxi::getListeRequetes() {
+	return listeRequete_;
 }
 
 
@@ -81,13 +109,13 @@ void Taxi::miseAjourRequetes()
   * Retour: aucun
   ****************************************************************************/
 // ajoute un passager dans le taxi si nbPassager < 4
-void Taxi::ajouterPassager(Passager passager)
+void Taxi::ajouterPassager(Passager* passager)
 {
 	if (listePassagersTaxi_.size() < 4)
 	{
 		listePassagersTaxi_.push_back(passager);
 		//trier selon id (en ordre croissant)
-		trierSelonId();
+		//trierSelonId();
 		//sort(listePassagersTaxi_.begin(), listePassagersTaxi_.end()/*, trierSelonId*/);
 	}	
 	else
@@ -104,7 +132,7 @@ void Taxi::ajouterPassager(Passager passager)
   * Retour: aucun
   ****************************************************************************/
 // ajoute un sommet a historique
-void Taxi::ajouterSommet(Sommet sommet)
+void Taxi::ajouterSommet(Sommet* sommet)
 {
 	 historiqueSommetsParcouru_.push_back(sommet);
 	 return;
@@ -133,7 +161,7 @@ void Taxi::chargerTaxi()
 	//enleve 10 min a tous les passagers
 	for (auto it : listePassagersTaxi_)
 	{
-		it.modifierTemps(10);
+		it->modifierTemps(10);
 	}	
 }
 /****************************************************************************
@@ -169,6 +197,8 @@ void Taxi::lireFichier()
 		string ligne;
 		getline(fichier, ligne);
 		positionDeDepart_ = convertStringtoInt(ligne); // lit la premiere ligne du fichier et la place dans position de depart
+		positionActuelle_ = positionDeDepart_;
+
 		while (!ws(fichier).eof())
 		{
 			getline(fichier, ligne);
@@ -224,7 +254,7 @@ void Taxi::afficherRequetes()
 		cout << " Passager " << listeRequete_[compteurAffichage]->getId() << " :"<< endl;
 		cout << "    Sommet De Depart : " << listeRequete_[compteurAffichage]->getSommetDepart() << endl
 			<< "    Sommet De Destination : " << listeRequete_[compteurAffichage]->getDestination() << endl
-			<< "    Temps voulu maximum: " << listeRequete_[compteurAffichage]->getTempsArrivee() << " min"<< endl << endl;
+			<< "    Temps maximum tolere: " << listeRequete_[compteurAffichage]->getTempsArrivee() << " min"<< endl << endl;
 		compteurAffichage++;
 		afficherRequetes();
 	}
@@ -275,6 +305,7 @@ bool canSwapPassager(Passager passagerASwap, Passager passagerdeComparaison)
   * Paramètres: passager1 et passager2
   * Retour: aucun
   ****************************************************************************/
+/*
 void Taxi::trierSelonId()
 {
 	int droite = listePassagersTaxi_.size();
@@ -283,4 +314,4 @@ void Taxi::trierSelonId()
 	{
 		swap(listePassagersTaxi_[droite], listePassagersTaxi_[gauche]);
 	}
-}
+}*/

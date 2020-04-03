@@ -25,13 +25,19 @@ public:
 	Taxi(string nomFichier);
 	~Taxi();
 
+	const int getPositionDepart();	
+	const int getPositionActuelle();
+	
+	void setNumeroActuel(int numeroDestination);
+
 	// Requetes
 	void EffacerTousRequetes();
 	void miseAjourRequetes();
+	const vector<Passager*> getListeRequetes();
 
 	// Passagers
-	void ajouterPassager(Passager passager);
-	void ajouterSommet(Sommet sommet);
+	void ajouterPassager(Passager* passager);
+	void ajouterSommet(Sommet* sommet);
 	void enleverPassager(Passager passager);
 
 	// Batteries
@@ -40,6 +46,7 @@ public:
 	void miseAJourBatterie(int distanceParcouru);
 
 	
+
 	// methode lecture requete;
 	void lireFichier();
 	void placerPassagerDansGraphe();
@@ -48,16 +55,17 @@ public:
 	void afficherRequetes();
 	void afficherPassagerTaxi();
 
-	void trierSelonId();
+	//void trierSelonId();
 
 private:
 	int batterieRestante_;
 	int positionDeDepart_;
+	int positionActuelle_;
 	string nomFichier_;
 	vector<string> listeFichierRequete_;
 	vector<Passager*> listeRequete_;
-	vector<Passager> listePassagersTaxi_;
-	vector<Sommet> historiqueSommetsParcouru_;
+	vector<Passager*> listePassagersTaxi_;
+	vector<Sommet*> historiqueSommetsParcouru_;
 };
 
 

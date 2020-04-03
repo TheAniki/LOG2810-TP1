@@ -29,7 +29,7 @@ Algorithme::~Algorithme()
   ****************************************************************************/
 vector<Trajet> Algorithme::getListeTrajetsPossible()
 {
-	return listeTrajetsPossible_;
+	return listeTrajetsEffectue;
 }
 /****************************************************************************
   * Fonction: Algorithme::getGraphe
@@ -61,10 +61,10 @@ Taxi Algorithme::getTaxi()
 void Algorithme::ajouterTrajet(Trajet trajet)
 {
 	// TODO : Px etre ajouter un if pour ne pas ajouter le trajet s'il est deja present dans la liste
-	listeTrajetsPossible_.push_back(trajet);
+	listeTrajetsEffectue.push_back(trajet);
 
 	// permet de trier la liste des trajet selon leur distance, en ordre croissant
-	trierListeSelonDistance();
+	//trierListeSelonDistance();
 	
 }
 /****************************************************************************
@@ -76,11 +76,14 @@ void Algorithme::ajouterTrajet(Trajet trajet)
   ****************************************************************************/
 void Algorithme::ajouterTrajetSiPlusCourt(Trajet trajet)
 {
-	if (listeTrajetsPossible_[0].distanceTotale > trajet.distanceTotale)
+	if (listeTrajetsEffectue[0].distanceTotale > trajet.distanceTotale)
 	{
 		ajouterTrajet(trajet);
 	}
 }
+
+
+
 /****************************************************************************
   * Fonction: Algorithme::EffacerTousLesTrajets
   * Description: Permet d'effacer tous les trajets de la liste
@@ -89,7 +92,7 @@ void Algorithme::ajouterTrajetSiPlusCourt(Trajet trajet)
   ****************************************************************************/
 void Algorithme::EffacerTousLesTrajets()
 {
-	listeTrajetsPossible_.clear();
+	listeTrajetsEffectue.clear();
 }
 /****************************************************************************
   * Fonction: Algorithme::EffacerUnTrajet
@@ -101,12 +104,12 @@ void Algorithme::EffacerUnTrajet(Trajet trajet)
 {
 	bool TrajetPresent = false;
 	vector<Trajet>::iterator it;
-	it = listeTrajetsPossible_.begin();
-	for (auto i = 0; i < listeTrajetsPossible_.size(); i++)
+	it = listeTrajetsEffectue.begin();
+	for (auto i = 0; i < listeTrajetsEffectue.size(); i++)
 	{
 		for (auto j = 0; j < trajet.listeSommetParcouru.size(); j++)
 		{
-			if (listeTrajetsPossible_[i].listeSommetParcouru[j] != trajet.listeSommetParcouru[j])
+			if (listeTrajetsEffectue[i].listeSommetParcouru[j] != trajet.listeSommetParcouru[j])
 			{
 				TrajetPresent = false;
 			}
@@ -121,7 +124,7 @@ void Algorithme::EffacerUnTrajet(Trajet trajet)
 			it++;
 		}	
 	}
-	listeTrajetsPossible_.erase(it);
+	listeTrajetsEffectue.erase(it);
 	return;
 }
 /****************************************************************************
@@ -142,30 +145,23 @@ bool canSwapTrajet(Trajet trajetASwap, Trajet TrajetdeComparaison)
   ****************************************************************************/
 void Algorithme::trierListeSelonDistance()
 {	
-    if (listeTrajetsPossible_.size() != 1) {
-        int droite = listeTrajetsPossible_.size();
+    if (listeTrajetsEffectue.size() != 1) {
+        int droite = listeTrajetsEffectue.size();
         int gauche = droite - 1;
-        while (canSwapTrajet(listeTrajetsPossible_[droite], listeTrajetsPossible_[gauche]))
+        while (canSwapTrajet(listeTrajetsEffectue[droite], listeTrajetsEffectue[gauche]))
         {
-            swap(listeTrajetsPossible_[droite], listeTrajetsPossible_[gauche]);
+            swap(listeTrajetsEffectue[droite], listeTrajetsEffectue[gauche]);
         }
     }
 }
 
-/****************************************************************************
-  * Fonction: Algorithme::plusCourtChemin
-  * Description: Permet de déterminer le chemin le plus court de tous les sommets
-				 en se basant sur l'algorithme de Dijkstra
-  * Paramètres: numero du sommet de depart
-  * Retour: le trajet le plus court pour franchir tous les sommets
-  ****************************************************************************/
-  
-Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive)
-{
+
+
+Trajet Algorithme::dijkstra(int numeroSommetDepart, int numeroSommetArrive) {
+
     Trajet trajetDepartArrive;
 
     if (numeroSommetArrive != numeroSommetDepart) {
-
 
         int infini = numeric_limits<int>::max();
 
@@ -190,7 +186,7 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
         // On ajoute le sommet de départ à la priority_queue
         queue.push(make_pair(numeroSommetDepart, 0));
 
-        // Debut de Dijkstra
+
         int numeroSommetTopQueue = queue.top().first;
         int tempsSommetTopQueue = queue.top().second;
 
@@ -234,8 +230,8 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
 
         //    3. Ajout du sommet de départ
         trajetDepartArrive.listeSommetParcouru.push_back(graphe.getSommets()[numeroSommetDepart - 1]);
-
     }
+
     else {
         trajetDepartArrive.listeSommetParcouru.push_back(graphe.getSommets()[numeroSommetDepart - 1]);
         trajetDepartArrive.listeSommetParcouru.push_back(graphe.getSommets()[numeroSommetArrive - 1]);
@@ -245,27 +241,170 @@ Trajet Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArriv
     // Ajout dans conteneur de trajet
     ajouterTrajet(trajetDepartArrive);
 
+    return trajetDepartArrive;
+}
 
 
 
-    //Affichage du trajet
+/****************************************************************************
+  * Fonction: Algorithme::afficherTrajet
+  * Description: Affiche le chemin, distance parcouru et batterie restante
+  * Paramètres: un trajet
+  * Retour: rien
+  ****************************************************************************/
+const void Algorithme::afficherTrajet(Trajet trajet) {
+
+    cout << endl << "     ------------------ Trajet de " << trajet.listeSommetParcouru.back()->getNumeroDuSommet() << " a " 
+         << trajet.listeSommetParcouru.front()->getNumeroDuSommet() << "------------------";
+
     cout << endl << "     Chemin le plus court pour s'y rendre: ";
-    for (int i = trajetDepartArrive.listeSommetParcouru.size() - 1; i >= 0; i--) {
-        cout << trajetDepartArrive.listeSommetParcouru[i]->getNumeroDuSommet();
+    for (int i = trajet.listeSommetParcouru.size() - 1; i >= 0; i--) {
+        cout << trajet.listeSommetParcouru[i]->getNumeroDuSommet();
         if (i != 0)
             cout << "->";
     }
-    cout << endl << "     Distance: " << trajetDepartArrive.distanceTotale << " min" << endl;
+    cout << endl << "     Distance: " << trajet.distanceTotale << " min" << endl;
 
     //Affichage de la distance
-    taxi.miseAJourBatterie(trajetDepartArrive.distanceTotale);
+    taxi.miseAJourBatterie(trajet.distanceTotale);
     cout << "     Pourcentage de la batterie restante: " << taxi.getBatterieRestante() << "%" << endl;
+}
+
+
+
+/****************************************************************************
+  * Fonction: Algorithme::plusCourtChemin
+  * Description: Permet de déterminer le chemin le plus court de tous les sommets
+				 en se basant sur l'algorithme de Dijkstra
+  * Paramètres: numero du sommet de depart
+  * Retour: le trajet le plus court pour franchir tous les sommets
+  ****************************************************************************/
+void Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive)
+{
+
+    // on trouve le trajet le plus court par l'algorithme Dijkstra's
+    Trajet trajet = dijkstra(numeroSommetDepart,numeroSommetArrive);
+ 
+    //Affichage du trajet
+    afficherTrajet(trajet);
+
+}
+
+Trajet Algorithme::conduireVersSommet(int numeroSommetDestination) {
+    
+   
+    Trajet trajet = dijkstra(taxi.getPositionActuelle(), numeroSommetDestination);
+    
+
+    taxi.setNumeroActuel(numeroSommetDestination);
+    taxi.miseAJourBatterie(trajet.distanceTotale);
+    listeTrajetsEffectue.push_back(trajet);
+
+
+    for (int i = trajet.listeSommetParcouru.size() - 2; i >= 0; i--) {
+        taxi.ajouterSommet(graphe.chercherSommet(trajet.listeSommetParcouru[i]->getNumeroDuSommet()));
+    }
+
+    return trajet;
+}
+
+
+Trajet Algorithme::trajetRecharger(int numeroPositionActuelle) {
+
+    Trajet trajetBorne;
+
+
+    for (int i = 0; i < graphe.getSommetsRecharge().size() - 1; i ) {
+        Trajet trajetTemporaire = trajetBorne = dijkstra(numeroPositionActuelle, graphe.getSommetsRecharge()[i]);
+        if (trajetBorne.distanceTotale > trajetTemporaire.distanceTotale)
+            trajetBorne = trajetTemporaire;
+    }
+
+    return trajetBorne;
+}
+
+
+Trajet Algorithme::miseAJoutTrajetFinal(const Trajet& trajetCourant, Trajet trajetFinal)
+{
+    Trajet trajet;
+
+    if (trajetFinal.listeSommetParcouru.size() != 0) {
+
+        for (int i = 0; i < trajetCourant.listeSommetParcouru.size() - 1; i++) {
+            trajet.listeSommetParcouru.push_back(trajetCourant.listeSommetParcouru[i]);
+        }
+
+        for (int i = 0; i < trajetFinal.listeSommetParcouru.size(); i++) {
+            trajet.listeSommetParcouru.push_back(trajetFinal.listeSommetParcouru[i]);
+        }
+    }
+    else {
+
+        for (int i = 0; i <= trajetCourant.listeSommetParcouru.size() - 1; i++) {
+            trajet.listeSommetParcouru.push_back(trajetCourant.listeSommetParcouru[i]);
+        }
+    }
+
+    if (trajetFinal.listeSommetParcouru.size() != 0)
+        trajet.distanceTotale = trajetCourant.distanceTotale + trajetFinal.distanceTotale;
+    else
+        trajet.distanceTotale = trajetCourant.distanceTotale;
+
+
+    return trajet;
+}
+
+
+/****************************************************************************
+  * Fonction: Algorithme::traiterRequêtes
+  * Description: la faisabilité de requêtes de clients  et de déterminer le 
+                 chemin qu’il faut prendre pour desservir ceux-ci, en tenant
+                 compte des restrictions de charge de batterie, temps et
+                 maximum 4 clients à la fois
+  * Paramètres: numero du sommet de depart
+  * Retour: le trajet le plus court pour franchir tous les sommets
+  ****************************************************************************/
+void Algorithme::traiterRequetes() {
+
+    Trajet trajetFinal;
+    Trajet sousTrajet;
+
+    taxi.ajouterSommet(graphe.chercherSommet(taxi.getPositionDepart()));
+
+    sousTrajet = conduireVersSommet(taxi.getListeRequetes().front()->getSommetDepart());
+
+    trajetFinal = miseAJoutTrajetFinal(sousTrajet, trajetFinal);
+    
+
+   for (int i = 0; i < taxi.getListeRequetes().size() - 1; i++) {
+
+
+
+
+       sousTrajet = conduireVersSommet(taxi.getListeRequetes()[i]->getSommetArrive());
+       trajetFinal = miseAJoutTrajetFinal(sousTrajet, trajetFinal);
 
 
 
 
 
-	return trajetDepartArrive;
+
+       taxi.ajouterPassager(taxi.getListeRequetes()[i]);
+
+       if ((taxi.getBatterieRestante() - sousTrajet.distanceTotale) < SEUIL_RECHARGE) {
+
+
+       }
+       else {}
+    
+    }
+    
+
+    //Affichage du trajet
+    afficherTrajet(trajetFinal);
+
+
+
 }
 
 

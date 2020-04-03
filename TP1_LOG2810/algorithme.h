@@ -21,6 +21,8 @@
 
 using namespace std;
 
+const int SEUIL_RECHARGE = 15;
+
 // structure Trajet utilise pour avoir des trajets dans la liste de trajets
 struct Trajet
 {
@@ -51,10 +53,19 @@ public:
 	//bool comparerDistance(Trajet trajetAComparer,Trajet trajetDeLaListe);
 	//bool operator<(const Trajet& trajetAComparer); const
 
-	Trajet plusCourtChemin(int depart, int arrive);
+	Trajet dijkstra(int numeroSommetDepart, int numeroSommetArrive);
+	void plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive);
+	const void afficherTrajet(Trajet trajet);
+	void traiterRequetes(); 
+	Trajet conduireVersSommet(int numeroSommetDestination);
+
+	Trajet trajetRecharger(int numeroPositionActuelle);
+	Trajet miseAJoutTrajetFinal(const Trajet& trajet, Trajet trajetFinal);
+
+
 
 private:
-	vector<Trajet> listeTrajetsPossible_; // contient la liste des trajets possible
+	vector<Trajet> listeTrajetsEffectue; // contient la liste des trajets possible
 	Graphe graphe;
 	Taxi taxi;
 };

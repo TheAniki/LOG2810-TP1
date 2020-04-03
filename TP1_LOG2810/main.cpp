@@ -75,11 +75,17 @@ bool choixYesNo(char choix)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void optionUpdateMap(Graphe& graphe, Taxi& taxi)
+Graphe optionUpdateMap(Graphe& graphe)
 {
+
+	// Construction du graphe à partir du fichier contenant les arrondissements
+	graphe.lireFichier();
+	graphe.creerGraphe();
+
+
 	char afficher;
 
-	cout << endl << "   1. Voulez-vous afficher le graphe? (Y/N) ";
+	cout << endl << "   Voulez-vous afficher le graphe? (Y/N) ";
 	cin >> afficher;
 	afficher = toupper(afficher);
 	cout << endl;
@@ -92,24 +98,8 @@ void optionUpdateMap(Graphe& graphe, Taxi& taxi)
 
 	if (afficher == 'Y')
 		graphe.AffichageGraphe();
-	cout << endl << "   2. Voulez-vous afficher les requetes? (Y/N) ";
-
-	cin >> afficher;
-	afficher = toupper(afficher);
-
-	cout << endl;
-	while (!choixYesNo(afficher))
-	{
-		cin >> afficher;
-		afficher = toupper(afficher);
-	}
-	if (afficher == 'Y') {
-		cout << "=================================" << endl;
-		cout << " Affichage de requetes: " << endl << endl;
-
-		taxi.afficherRequetes();
-		cout << "=================================" << endl;
-	}
+	
+	return graphe;
 }
 /****************************************************************************
   * Fonction: optionCheminPlusCourt()
@@ -117,8 +107,12 @@ void optionUpdateMap(Graphe& graphe, Taxi& taxi)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void optionCheminPlusCourt(Algorithme& algorithme)
+void optionCheminPlusCourt(const Graphe& graphe)
 {
+
+	Taxi taxi;
+
+	Algorithme algorithme(graphe, taxi);
 
 	int depart, arrive;
 	cout << endl << "   1. Entrer le sommet de depart: ";
@@ -136,30 +130,66 @@ void optionCheminPlusCourt(Algorithme& algorithme)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void optionTraiterRequête()
+void optionTraiterRequête(Graphe& graphe, Taxi& taxi)
 {
+	taxi.lireFichier();
+	taxi.placerPassagerDansGraphe();
+	Algorithme algorithme(graphe, taxi);
+
+
+	//Affichage
+	char afficher;
+	cout << endl << "   Voulez-vous afficher les requetes? (Y/N) ";
+
+	cin >> afficher;
+	afficher = toupper(afficher);
+
+	cout << endl;
+	while (!choixYesNo(afficher))
+	{
+		cin >> afficher;
+		afficher = toupper(afficher);
+	}
+	if (afficher == 'Y') {
+		cout << "=================================" << endl;
+		cout << " Affichage de requetes: " << endl << endl;
+
+		taxi.afficherRequetes();
+		cout << "=================================" << endl << endl;
+	}
+
+
+	algorithme.traiterRequetes();
+
+
+
+
+
+
+
+
+
+
 
 }
 
 int main()
 {
 	Graphe graphe = Graphe("arrondissements.txt");
+	Taxi taxi = Taxi("requetes.txt");
+
+	// Par défaut on lit le fichier arrondissement.txt
+	// Il peut être mis à jour par l'option A) lorsque le programme est déjà lancé
 	graphe.lireFichier();
 	graphe.creerGraphe();
 
-	Taxi taxi = Taxi("requetes.txt");
-	taxi.lireFichier();
-	taxi.placerPassagerDansGraphe();
-
-	Algorithme algorithme(graphe, taxi);
+	//******** Interface ********
 
 
-
-	// methode de selectionnement du menu
 	char charSelect, charContinu;
 
-
-	do  // force selection parmis les choix disponibles
+	// Forcer la selection parmis les choix disponibles
+	do  
 	{
 		system("CLS");
 		affichageOptions();
@@ -180,7 +210,7 @@ int main()
 			cout << endl << "   --------------------------" << endl
 			<< "   A) Mettre a jouer la carte" << endl
 			<< "   --------------------------" << endl;
-			optionUpdateMap(graphe, taxi);		
+			graphe = optionUpdateMap(graphe);		
 			break;
 
 
@@ -190,7 +220,11 @@ int main()
 			cout << endl << "   ----------------------------------------------" << endl
 				<< "   B) Determiner le plus court chemin securitaire" << endl
 				<< "   ----------------------------------------------" << endl;
-			optionCheminPlusCourt(algorithme);
+			optionCheminPlusCourt(graphe);
+
+			//On semble perdre les sommet adjacents ici si on refait par le graphe POURQUOI?
+			graphe.miseAJourGraphe();
+
 			break;
 
 
@@ -201,7 +235,7 @@ int main()
 			cout << endl << "   -----------------------" << endl
 				<< "   C) Traiter les requetes" << endl
 				<< "   -----------------------" << endl;
-			optionTraiterRequête();
+			optionTraiterRequête(graphe, taxi);
 			break;
 
 		// Sélection Quitter
@@ -212,17 +246,17 @@ int main()
 		// Sélection Tests
 		case 'T':
 					 cout << endl << "****************** Debut des tests ******************" << endl << endl;
-				     exectuterTousLesTests(graphe, taxi, algorithme);
+				    // exectuterTousLesTests(graphe, taxi, algorithme);
 			break;
 
 		default:						
 			break;
 		}
 		if (charSelect != 'D'){
-
-				do // force selection entre y et n
+				// Forcer la selection entre y et n
+				do 
 				{
-					cout << endl << "Retourner au menu principal? (Y/N) ";
+					cout << endl << "   Retourner au menu principal? (Y/N) ";
 					cin >> charContinu;
 					charContinu = toupper(charContinu);
 			
@@ -245,7 +279,6 @@ int main()
 		}		
 		
 	}
-	//====================================================================================//
 	return 0;
 }
 
