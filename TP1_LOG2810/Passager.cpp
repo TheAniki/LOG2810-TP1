@@ -7,11 +7,11 @@
 #include "Passager.h"
 
 Passager::Passager() : id_(0), sommetDepart_(0),
-	sommetArrive_(0), tempsArrivee_(0), complete_(false), dansTaxi_(false)
+	sommetArrive_(0), tempsArrivee_(0), complete_(false), dansTaxi_(false), tempsDepasse_(false)
 {
 }
 Passager::Passager(int id, int sommetDepart, int destination, int tempsArrivee) : id_(id), sommetDepart_(sommetDepart),
-	sommetArrive_(destination), tempsArrivee_(tempsArrivee), complete_(false), dansTaxi_(false)
+	sommetArrive_(destination), tempsArrivee_(tempsArrivee), complete_(false), dansTaxi_(false), tempsDepasse_(false)
 {
 
 }
@@ -55,14 +55,29 @@ const bool Passager::getDansTaxi()
 }
 
 
+
+
+const bool Passager::getTempsDepasse()
+{
+	return tempsDepasse_;
+}
+
+
+const bool Passager::getComplete()
+{
+	return complete_;
+}
+
+
+
 void Passager::setDansTaxi(bool dansTaxi)
 {
 	dansTaxi_ = dansTaxi;
 }
 
-const bool Passager::getComplete()
+void Passager::setTempsDepasse(bool tempsDepasse)
 {
-	return complete_;
+	tempsDepasse_ = tempsDepasse;
 }
 
 

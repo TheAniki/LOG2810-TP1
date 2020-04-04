@@ -44,7 +44,7 @@ public:
 	// Passagers
 	void ajouterPassager(Passager* passager);
 	void ajouterSommet(Sommet* sommet);
-	void enleverPassager(Passager passager);
+	void enleverPassager(Passager* passager);
 
 	// Batteries
 	const int getBatterieRestante();

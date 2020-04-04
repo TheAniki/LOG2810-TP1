@@ -29,6 +29,9 @@ public:
 	const int getSommetArrive();
 	const int getId();
 	const bool getDansTaxi();
+	const bool getTempsDepasse();
+
+	void setTempsDepasse(bool tempsDepasse);
 	void setDansTaxi(bool dansTaxi);
 	const bool getComplete();
 	void setComplete(bool complete);
@@ -46,6 +49,7 @@ private:
 	int sommetArrive_; // numero du sommet a atteindre.
 	bool dansTaxi_;
 	bool complete_;
+	bool tempsDepasse_;
 };
 
 
