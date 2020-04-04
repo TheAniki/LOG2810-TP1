@@ -21,10 +21,13 @@ public:
 	~Sommet();
 	Sommet(int numeroDuSommet, bool presenceBorne); //constructeur par parametre
 	//methode d'acces
-	int getNumeroDuSommet();
-	bool getPresenceBorne();
+	const int getNumeroDuSommet();
+	const bool getPresenceBorne();
+	const int getTempsParent();
 	void EffacerTousSommetsAdjacents();
-	vector<pair<Sommet*, int>> getSommetsAdjacents();
+	const vector<pair<Sommet*, int>> getSommetsAdjacents();
+
+	void setTempsParent(int distance);
 
 
 	void ajouterSommetAdjacent(Sommet* sommetAdjacent, int temps);
@@ -36,6 +39,7 @@ private:
 	vector<pair<Sommet*, int>> sommetsAdjacents_; //Sommet : pour le sommet et int pour le temps entre les 2
 	int numeroDuSommet_;
 	bool presenceBorne_;
+	int tempsParent_;
 };
 
 

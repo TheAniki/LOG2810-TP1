@@ -16,37 +16,33 @@ Sommet::~Sommet()
 Sommet::Sommet(int numeroDuSommet, bool presenceBorne) : numeroDuSommet_(numeroDuSommet) , presenceBorne_(presenceBorne)
 {
 }
-/****************************************************************************
-  * Fonction: Sommet::getNumeroDuSommet
-  * Description: Méthode premettant d'accéder au numeroDuSommet_
-  * Paramètres: aucun
-  * Retour: int numeroDuSommet_
-  ****************************************************************************/
-int Sommet::getNumeroDuSommet()
+
+// Getters
+const int Sommet::getNumeroDuSommet()
 {
 	return numeroDuSommet_;
 }
-/****************************************************************************
-  * Fonction: Sommet::getPresenceBorne
-  * Description: Méthode permettant d'accéder à presenceBorne_ 
-  * Paramètres: aucun
-  * Retour: bool presenceBorne_
-  ****************************************************************************/
-bool Sommet::getPresenceBorne()
+
+const bool Sommet::getPresenceBorne()
 {
 	return presenceBorne_;
 }
-/****************************************************************************
-  * Fonction: Sommet::getSommetsAdjacents
-  * Description: Permet d'accéder à la liste des sommetsAdjacents du sommet
-  * Paramètres: aucun
-  * Retour: liste des sommetsAdjacents_
-  ****************************************************************************/
-vector<pair<Sommet*, int>> Sommet::getSommetsAdjacents()
+
+const vector<pair<Sommet*, int>> Sommet::getSommetsAdjacents()
 {
 	return sommetsAdjacents_;
 }
 
+const int Sommet::getTempsParent()
+{
+    return tempsParent_;
+}
+
+//Setters
+void Sommet::setTempsParent(int distance)
+{
+   tempsParent_ = distance;
+}
 
 /****************************************************************************
   * Fonction: Sommet::EffacerTousSommetsAdjacents

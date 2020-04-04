@@ -28,6 +28,8 @@ struct Trajet
 {
 	vector<Sommet*> listeSommetParcouru;
 	int distanceTotale;
+	enum Type_T {recharge, recupere, destination};
+	Type_T type;
 };
 
 
@@ -61,8 +63,8 @@ public:
 
 	Trajet trajetRecharger(int numeroPositionActuelle);
 	Trajet miseAJoutTrajetFinal(const Trajet& trajet, Trajet trajetFinal);
-
-
+	Trajet prochainTrajet(int positionActuelle, Passager* requeteCourante);
+	void miseAJourTaxi(Trajet trajet);
 
 private:
 	vector<Trajet> listeTrajetsEffectue; // contient la liste des trajets possible

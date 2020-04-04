@@ -28,6 +28,11 @@ public:
 	const int getSommetDepart();
 	const int getSommetArrive();
 	const int getId();
+	const bool getDansTaxi();
+	void setDansTaxi(bool dansTaxi);
+	const bool getComplete();
+	void setComplete(bool complete);
+
 
 	void modifierTemps(int tempsAretirer);
 
@@ -39,6 +44,8 @@ private:
 	int tempsArrivee_; // temps limite.	
 	int sommetDepart_; // numero du sommet de depart.
 	int sommetArrive_; // numero du sommet a atteindre.
+	bool dansTaxi_;
+	bool complete_;
 };
 
 

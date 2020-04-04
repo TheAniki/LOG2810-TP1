@@ -18,6 +18,10 @@
 #include "Graphe.h"
 using namespace std;
 
+
+const int NB_PLACES_TAXI = 4;
+
+
 class Taxi : public Graphe , public Sommet
 {
 public:
@@ -27,8 +31,10 @@ public:
 
 	const int getPositionDepart();	
 	const int getPositionActuelle();
+	const vector<Passager*> getListePassager();
+
 	
-	void setNumeroActuel(int numeroDestination);
+	void setPositionActuelle(int numeroDestination);
 
 	// Requetes
 	void EffacerTousRequetes();

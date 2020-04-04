@@ -209,6 +209,7 @@ Trajet Algorithme::dijkstra(int numeroSommetDepart, int numeroSommetArrive) {
                     // A la fin de la boucle, on aura la distance la plus courte à l'index 
                     if (tempsAddSommetCourant < vecteurTemps[numeroSommetCourant]) {
                         vecteurTemps[numeroSommetCourant] = tempsAddSommetCourant;
+                        //graphe.getSommets()[numeroSommetCourant]->setTempsParent(tempsSommetCourant);
                         vecteurParents[numeroSommetCourant] = numeroSommetTopQueue;
                         queue.push(make_pair(numeroSommetCourant, vecteurTemps[numeroSommetCourant]));
                     }
@@ -216,6 +217,8 @@ Trajet Algorithme::dijkstra(int numeroSommetDepart, int numeroSommetArrive) {
             }
 
         }
+
+      
 
 
         // Boucle pour contruire le trajet au complet, entre départ et arrivé
@@ -237,6 +240,24 @@ Trajet Algorithme::dijkstra(int numeroSommetDepart, int numeroSommetArrive) {
         trajetDepartArrive.listeSommetParcouru.push_back(graphe.getSommets()[numeroSommetArrive - 1]);
         trajetDepartArrive.distanceTotale = 0;
     }
+
+    // Ajouter les distance entre chaque sommet
+    for (int i = 0; i < trajetDepartArrive.listeSommetParcouru.size() - 1; i++) {
+        cout << trajetDepartArrive.listeSommetParcouru[i]->getNumeroDuSommet() << endl;
+
+        for (int j = 0; j < trajetDepartArrive.listeSommetParcouru[i]->getSommetsAdjacents().size(); j++) {
+         
+            cout << trajetDepartArrive.listeSommetParcouru[i]->getSommetsAdjacents()[j].first->getNumeroDuSommet() << endl;
+
+            if (trajetDepartArrive.listeSommetParcouru[i]->getSommetsAdjacents()[j].first->getNumeroDuSommet() ==
+                trajetDepartArrive.listeSommetParcouru[i+1]->getNumeroDuSommet())
+
+                trajetDepartArrive.listeSommetParcouru[i]->setTempsParent(trajetDepartArrive.listeSommetParcouru[i]->getSommetsAdjacents()[j].second);
+
+
+        }
+    }
+
 
     // Ajout dans conteneur de trajet
     ajouterTrajet(trajetDepartArrive);
@@ -292,20 +313,53 @@ void Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive)
 
 Trajet Algorithme::conduireVersSommet(int numeroSommetDestination) {
     
-   
+    // Calcul le "sous" trajet le plus court avec Dijkstra   
     Trajet trajet = dijkstra(taxi.getPositionActuelle(), numeroSommetDestination);
     
-
-    taxi.setNumeroActuel(numeroSommetDestination);
+    // Mise à jour taxi: position actuelle, charge et ajout le "sous" trajet
+    taxi.setPositionActuelle(numeroSommetDestination);
     taxi.miseAJourBatterie(trajet.distanceTotale);
     listeTrajetsEffectue.push_back(trajet);
 
-
+    // Ajoute les sommets parcouru la la liste du taxi
     for (int i = trajet.listeSommetParcouru.size() - 2; i >= 0; i--) {
-        taxi.ajouterSommet(graphe.chercherSommet(trajet.listeSommetParcouru[i]->getNumeroDuSommet()));
+        taxi.ajouterSommet(trajet.listeSommetParcouru[i]);
+    }
+
+    // Modifier le temps de chaque passager
+    if (taxi.getListePassager().size() != 0) {
+        for (int i = 0; i < taxi.getListePassager().size() - 1; i++) {
+            taxi.getListePassager()[i]->modifierTemps(trajet.distanceTotale);
+        }
     }
 
     return trajet;
+}
+
+
+void Algorithme::miseAJourTaxi(Trajet trajet) {
+
+
+    // Mise à jour taxi: position actuelle, charge et ajout le "sous" trajet
+    taxi.setPositionActuelle(trajet.listeSommetParcouru.front()->getNumeroDuSommet());
+    taxi.miseAJourBatterie(trajet.distanceTotale);
+    listeTrajetsEffectue.push_back(trajet);
+
+    // Ajoute les sommets parcouru la la liste du taxi
+    if (trajet.listeSommetParcouru.front()->getNumeroDuSommet() != trajet.listeSommetParcouru.back()->getNumeroDuSommet()) {
+
+        for (int i = trajet.listeSommetParcouru.size() - 2; i >= 0; i--) {
+            taxi.ajouterSommet(trajet.listeSommetParcouru[i]);
+        }
+    }
+
+    // Modifier le temps de chaque passager
+    if (taxi.getListePassager().size() != 0) {
+        for (int i = 0; i < taxi.getListePassager().size() - 1; i++) {
+            taxi.getListePassager()[i]->modifierTemps(trajet.distanceTotale);
+        }
+    }
+
 }
 
 
@@ -328,32 +382,75 @@ Trajet Algorithme::miseAJoutTrajetFinal(const Trajet& trajetCourant, Trajet traj
 {
     Trajet trajet;
 
-    if (trajetFinal.listeSommetParcouru.size() != 0) {
+    if (trajetCourant.distanceTotale != 0) {
+        if (trajetFinal.listeSommetParcouru.size() != 0) {
 
-        for (int i = 0; i < trajetCourant.listeSommetParcouru.size() - 1; i++) {
-            trajet.listeSommetParcouru.push_back(trajetCourant.listeSommetParcouru[i]);
+            for (int i = 0; i < trajetCourant.listeSommetParcouru.size() - 1; i++) {
+                trajet.listeSommetParcouru.push_back(trajetCourant.listeSommetParcouru[i]);
+            }
+
+            for (int i = 0; i < trajetFinal.listeSommetParcouru.size(); i++) {
+                trajet.listeSommetParcouru.push_back(trajetFinal.listeSommetParcouru[i]);
+            }
+        }
+        else {
+
+            for (int i = 0; i <= trajetCourant.listeSommetParcouru.size() - 1; i++) {
+                trajet.listeSommetParcouru.push_back(trajetCourant.listeSommetParcouru[i]);
+            }
         }
 
-        for (int i = 0; i < trajetFinal.listeSommetParcouru.size(); i++) {
-            trajet.listeSommetParcouru.push_back(trajetFinal.listeSommetParcouru[i]);
-        }
+        if (trajetFinal.listeSommetParcouru.size() != 0)
+            trajet.distanceTotale = trajetCourant.distanceTotale + trajetFinal.distanceTotale;
+        else
+            trajet.distanceTotale = trajetCourant.distanceTotale;
     }
-    else {
-
-        for (int i = 0; i <= trajetCourant.listeSommetParcouru.size() - 1; i++) {
-            trajet.listeSommetParcouru.push_back(trajetCourant.listeSommetParcouru[i]);
-        }
-    }
-
-    if (trajetFinal.listeSommetParcouru.size() != 0)
-        trajet.distanceTotale = trajetCourant.distanceTotale + trajetFinal.distanceTotale;
     else
-        trajet.distanceTotale = trajetCourant.distanceTotale;
-
+        trajet = trajetFinal;
 
     return trajet;
 }
 
+
+Trajet Algorithme::prochainTrajet(int posititionAtuelle, Passager* requeteCourante) {
+
+    Trajet trajetChoisi;
+    Trajet trajetNouveauPassager;
+
+    // Trajet de la destination de la requete du passager pris en paramètre
+    Trajet trajetDestinationRequete = dijkstra(posititionAtuelle, requeteCourante->getDestination());
+    trajetChoisi = trajetDestinationRequete;
+    trajetChoisi.type = Trajet::destination;
+    if (taxi.getListePassager().size() < 4) {
+
+        // On compare la distance du trajet de destination à celle du départ des autres requêtes
+        int index;
+        for (int i = requeteCourante->getId() + 1; i < taxi.getListeRequetes().size(); i++) {
+
+            trajetNouveauPassager = dijkstra(posititionAtuelle, taxi.getListeRequetes()[i]->getSommetDepart());
+
+            if ((trajetNouveauPassager.distanceTotale < trajetDestinationRequete.distanceTotale) && (trajetNouveauPassager.distanceTotale < trajetChoisi.distanceTotale)) {
+                trajetChoisi = trajetNouveauPassager;
+                trajetChoisi.type = Trajet::recupere;
+                index = i;
+            }
+            
+        }
+        if (trajetChoisi.type == Trajet::recupere) {
+            if (!taxi.getListeRequetes()[index]->getDansTaxi() && !taxi.getListeRequetes()[index]->getComplete())
+            taxi.ajouterPassager(taxi.getListeRequetes()[index]);
+        }
+    }
+
+    if ((taxi.getBatterieRestante() - trajetChoisi.distanceTotale) < SEUIL_RECHARGE) {
+
+        trajetChoisi = trajetRecharger(posititionAtuelle);
+        trajetChoisi.type = Trajet::recharge;
+    }
+  
+    return trajetChoisi;
+
+}
 
 /****************************************************************************
   * Fonction: Algorithme::traiterRequêtes
@@ -366,42 +463,35 @@ Trajet Algorithme::miseAJoutTrajetFinal(const Trajet& trajetCourant, Trajet traj
   ****************************************************************************/
 void Algorithme::traiterRequetes() {
 
-    Trajet trajetFinal;
+    Trajet trajetComplet;
     Trajet sousTrajet;
+
 
     taxi.ajouterSommet(graphe.chercherSommet(taxi.getPositionDepart()));
 
     sousTrajet = conduireVersSommet(taxi.getListeRequetes().front()->getSommetDepart());
 
-    trajetFinal = miseAJoutTrajetFinal(sousTrajet, trajetFinal);
+    trajetComplet = miseAJoutTrajetFinal(sousTrajet, trajetComplet);
     
-
-   for (int i = 0; i < taxi.getListeRequetes().size() - 1; i++) {
-
-
-
-
-       sousTrajet = conduireVersSommet(taxi.getListeRequetes()[i]->getSommetArrive());
-       trajetFinal = miseAJoutTrajetFinal(sousTrajet, trajetFinal);
+    taxi.ajouterPassager(taxi.getListeRequetes().front());
 
 
 
 
+    for (int i = 0; taxi.getListeRequetes().size() - 1; i++)
+    { 
+
+        sousTrajet = prochainTrajet(taxi.getPositionActuelle(), taxi.getListeRequetes()[i]);
+        miseAJourTaxi(sousTrajet);
+        trajetComplet = miseAJoutTrajetFinal(sousTrajet, trajetComplet);
+   
 
 
-       taxi.ajouterPassager(taxi.getListeRequetes()[i]);
-
-       if ((taxi.getBatterieRestante() - sousTrajet.distanceTotale) < SEUIL_RECHARGE) {
-
-
-       }
-       else {}
-    
     }
     
 
     //Affichage du trajet
-    afficherTrajet(trajetFinal);
+    afficherTrajet(trajetComplet);
 
 
 

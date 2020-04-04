@@ -47,10 +47,19 @@ const int Taxi::getPositionActuelle()
 	return positionActuelle_;
 }
 
+const vector<Passager*> Taxi::getListePassager() {
+	return listePassagersTaxi_;
+}
 
-void Taxi::setNumeroActuel(int numeroDestination)  {
+//
+// Setter
+//
+void Taxi::setPositionActuelle(int numeroDestination)  {
 	positionActuelle_ = numeroDestination;
 }
+
+
+
 
 
 /****************************************************************************
@@ -114,6 +123,7 @@ void Taxi::ajouterPassager(Passager* passager)
 	if (listePassagersTaxi_.size() < 4)
 	{
 		listePassagersTaxi_.push_back(passager);
+		passager->setDansTaxi(true);
 		//trier selon id (en ordre croissant)
 		//trierSelonId();
 		//sort(listePassagersTaxi_.begin(), listePassagersTaxi_.end()/*, trierSelonId*/);
@@ -147,6 +157,8 @@ void Taxi::ajouterSommet(Sommet* sommet)
 void Taxi::enleverPassager(Passager passager)
 {
 	listePassagersTaxi_.erase(listePassagersTaxi_.begin());
+	passager.setDansTaxi(false);
+
 }
 /****************************************************************************
   * Fonction: Taxi::chargerTaxi
