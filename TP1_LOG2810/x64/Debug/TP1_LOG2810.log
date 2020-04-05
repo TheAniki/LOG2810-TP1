@@ -1,13 +1,13 @@
-﻿  Graphe.cpp
+﻿  algorithme.cpp
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(245,55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(276,55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(308,59): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(523,63): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(579,62): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Graphe.cpp
+  main.cpp
   Passager.cpp
   Sommet.cpp
-  algorithme.cpp
-C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(241,55): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(265,55): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(291,59): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(487,63): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-  main.cpp
   taxi.cpp
-  Génération de code en cours...
-C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(555,62): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-  TP1_LOG2810.vcxproj -> C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\x64\Debug\TP1_LOG2810.exe
+  Generating Code...
+  TP1_LOG2810.vcxproj -> \\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\x64\Debug\TP1_LOG2810.exe

@@ -108,6 +108,12 @@ void Algorithme::EffacerUnTrajet(Trajet trajet)
 	return;
 }
 
+/****************************************************************************
+  * Fonction: Algorithme::dijkstra
+  * Description: Algorithme de détection de chemin le plus court
+  * Paramètres: sommet de départ et d'arrivé
+  * Retour: le trajet
+  ****************************************************************************/
 Trajet Algorithme::dijkstra(int numeroSommetDepart, int numeroSommetArrive) {
 
     Trajet trajetDepartArrive;
@@ -249,6 +255,13 @@ void Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive)
 
 }
 
+
+/****************************************************************************
+  * Fonction: Algorithme::conduireVersSommet
+  * Description: fait avancer un taxi vers la destination
+  * Paramètres: numero de destination
+  * Retour: retourne le trajet effectué
+  ****************************************************************************/
 Trajet Algorithme::conduireVersSommet(int numeroSommetDestination) {
     
     // Calcul le "sous" trajet le plus court avec Dijkstra   
@@ -275,6 +288,12 @@ Trajet Algorithme::conduireVersSommet(int numeroSommetDestination) {
 }
 
 
+/****************************************************************************
+  * Fonction: Algorithme::miseAJourTaxi
+  * Description: mets a jour les parametre du taxi en fonction du trajet 
+  * Paramètres: un trajet
+  * Retour: rien
+  ****************************************************************************/
 void Algorithme::miseAJourTaxi(Trajet trajet) {
 
 
@@ -307,6 +326,12 @@ void Algorithme::miseAJourTaxi(Trajet trajet) {
 }
 
 
+/****************************************************************************
+  * Fonction: Algorithme::trajetRecharger
+  * Description: calcul quelle borne de recharge est la plus près
+  * Paramètres: position actuelle
+  * Retour: un trajet
+  ****************************************************************************/
 Trajet Algorithme::trajetRecharger(int numeroPositionActuelle) {
 
     Trajet trajetBorne;
@@ -322,8 +347,13 @@ Trajet Algorithme::trajetRecharger(int numeroPositionActuelle) {
     return trajetBorne;
 }
 
-
-Trajet Algorithme::miseAJoutTrajetFinal(const Trajet& trajetCourant, Trajet trajetFinal)
+/****************************************************************************
+  * Fonction: Algorithme::miseAJourTrajetFinal
+  * Description: ajout le trajet courant et trajet final deja créer
+  * Paramètres: le trajet courant et le Final courant
+  * Retour: un trajet
+  ****************************************************************************/
+Trajet Algorithme::miseAJourTrajetFinal(const Trajet& trajetCourant, Trajet trajetFinal)
 {
     Trajet trajet;
 
@@ -356,7 +386,15 @@ Trajet Algorithme::miseAJoutTrajetFinal(const Trajet& trajetCourant, Trajet traj
     return trajet;
 }
 
-
+/****************************************************************************
+  * Fonction: Algorithme::prochainTrajet
+  * Description: decision de la prochaine destination :
+  *                     -Vers Borne
+  *                     -Vers un nouveau client
+  *                     -Aller porter un passager du taxi
+  * Paramètres: position actuelle et la requete courante
+  * Retour: un trajet
+  ****************************************************************************/
 Trajet Algorithme::prochainTrajet(int posititionAtuelle, Passager* requeteCourante) {
 
     Trajet trajetChoisi;
@@ -452,7 +490,7 @@ void Algorithme::traiterRequetes() {
 
     sousTrajet = conduireVersSommet(taxi.getListeRequetes().front()->getSommetDepart());
 
-    trajetComplet = miseAJoutTrajetFinal(sousTrajet, trajetComplet);
+    trajetComplet = miseAJourTrajetFinal(sousTrajet, trajetComplet);
     
     taxi.ajouterPassager(taxi.getListeRequetes().front());
 
@@ -475,7 +513,7 @@ void Algorithme::traiterRequetes() {
 
         sousTrajet = prochainTrajet(taxi.getPositionActuelle(), taxi.getListeRequetes()[requeteCourante]);
         miseAJourTaxi(sousTrajet);
-        trajetComplet = miseAJoutTrajetFinal(sousTrajet, trajetComplet);
+        trajetComplet = miseAJourTrajetFinal(sousTrajet, trajetComplet);
 
         batterieRestante = taxi.getBatterieRestante();
 

@@ -55,7 +55,7 @@ public:
 	Trajet conduireVersSommet(int numeroSommetDestination);
 
 	Trajet trajetRecharger(int numeroPositionActuelle);
-	Trajet miseAJoutTrajetFinal(const Trajet& trajet, Trajet trajetFinal);
+	Trajet miseAJourTrajetFinal(const Trajet& trajet, Trajet trajetFinal);
 	Trajet prochainTrajet(int positionActuelle, Passager* requeteCourante);
 	void miseAJourTaxi(Trajet trajet);
 
