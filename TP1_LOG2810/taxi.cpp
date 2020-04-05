@@ -156,11 +156,17 @@ void Taxi::ajouterSommet(Sommet* sommet)
 // enleve le passager prioritaire
 void Taxi::enleverPassager(Passager* passager)
 {
-	for (int i = 0; i < listePassagersTaxi_.size() - 1; i++) {
-		if (passager->getId() == listePassagersTaxi_[i]->getId())
-			listePassagersTaxi_.erase(listePassagersTaxi_.begin() + i);
+	if (listePassagersTaxi_.size() != 1) {
 
+
+		for (int i = 0; i <= listePassagersTaxi_.size() - 1; i++) {
+			if (passager->getId() == listePassagersTaxi_[i]->getId())
+				listePassagersTaxi_.erase(listePassagersTaxi_.begin() + i);
+
+		}
 	}
+	else
+		listePassagersTaxi_.erase(listePassagersTaxi_.begin());
 
 	passager->setDansTaxi(false);
 

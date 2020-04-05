@@ -129,15 +129,13 @@
     <ClCompile Include="Passager.cpp" />
     <ClCompile Include="Sommet.cpp" />
     <ClCompile Include="taxi.cpp" />
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorithme.h" />
     <ClInclude Include="Graphe.h" />
+    <ClInclude Include="taxi.h" />
     <ClInclude Include="Passager.h" />
     <ClInclude Include="Sommet.h" />
-    <ClInclude Include="Taxi.h" />
-    <ClInclude Include="Test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

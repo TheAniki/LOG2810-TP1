@@ -13,7 +13,6 @@
 
 #include "Graphe.h"
 #include "Taxi.h"
-#include "Test.h"
 #include "algorithme.h"
 #include "Sommet.h"
 #include "Passager.h"
@@ -32,7 +31,6 @@ void affichageOptions()
 		<< " B -> Determiner le plus court chemin securitaire" << endl
 		<< " C -> Traiter les requetes" << endl
 		<< " D -> QUITTER" << endl << endl
-		<< " T -> Lancer les tests (temporaire)" << endl << endl
 		<< "Choisir option (A, B, C ou D) : ";
 }
 /****************************************************************************
@@ -236,6 +234,10 @@ int main()
 				<< "   C) Traiter les requetes" << endl
 				<< "   -----------------------" << endl;
 			optionTraiterRequête(graphe, taxi);
+
+			//On semble perdre les sommet adjacents ici si on refait par le graphe POURQUOI?
+			graphe.miseAJourGraphe();
+
 			break;
 
 		// Sélection Quitter
@@ -243,11 +245,6 @@ int main()
 					cout << endl << "   D) Quitter" << endl;
 			break;
 
-		// Sélection Tests
-		case 'T':
-					 cout << endl << "****************** Debut des tests ******************" << endl << endl;
-				    // exectuterTousLesTests(graphe, taxi, algorithme);
-			break;
 
 		default:						
 			break;

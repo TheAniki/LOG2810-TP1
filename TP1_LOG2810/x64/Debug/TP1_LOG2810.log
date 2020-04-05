@@ -1,7 +1,11 @@
 ﻿  algorithme.cpp
 \\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(149,49): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(282,55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(325,55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(351,59): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(525,63): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(290,55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(314,55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(340,59): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(539,63): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(607,62): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+  taxi.cpp
+  Generating Code...
   TP1_LOG2810.vcxproj -> \\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\x64\Debug\TP1_LOG2810.exe

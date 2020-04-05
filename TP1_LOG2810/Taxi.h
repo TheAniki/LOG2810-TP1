@@ -22,18 +22,18 @@ using namespace std;
 const int NB_PLACES_TAXI = 4;
 
 
-class Taxi : public Graphe , public Sommet
+class Taxi : public Graphe, public Sommet
 {
 public:
 	Taxi();
 	Taxi(string nomFichier);
 	~Taxi();
 
-	const int getPositionDepart();	
+	const int getPositionDepart();
 	const int getPositionActuelle();
 	const vector<Passager*> getListePassager();
 
-	
+
 	void setPositionActuelle(int numeroDestination);
 
 	// Requetes
@@ -51,7 +51,7 @@ public:
 	void chargerTaxi();
 	void miseAJourBatterie(int distanceParcouru);
 
-	
+
 
 	// methode lecture requete;
 	void lireFichier();
@@ -76,4 +76,4 @@ private:
 
 
 
-#endif // !TAXI_H
+#endif // !TAXI_H#pragma once
