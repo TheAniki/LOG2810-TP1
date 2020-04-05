@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: Taxi.cpp
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Implémentation des méthodes de la classe Taxi
  ****************************************************************************/
@@ -23,7 +23,7 @@ Taxi::Taxi(string nomFichier): nomFichier_(nomFichier), positionDeDepart_(0),bat
 
 Taxi::~Taxi()
 {
-	EffacerTousRequetes();	
+	EffacerTousRequetes();
 	listeFichierRequete_.clear();
 	listePassagersTaxi_.clear();
 	historiqueSommetsParcouru_.clear();
@@ -47,19 +47,18 @@ const int Taxi::getPositionActuelle()
 	return positionActuelle_;
 }
 
-const vector<Passager*> Taxi::getListePassager() {
+const vector<Passager*> Taxi::getListePassager()
+{
 	return listePassagersTaxi_;
 }
 
 //
 // Setter
 //
-void Taxi::setPositionActuelle(int numeroDestination)  {
+void Taxi::setPositionActuelle(int numeroDestination)
+{
 	positionActuelle_ = numeroDestination;
 }
-
-
-
 
 
 /****************************************************************************
@@ -68,7 +67,8 @@ void Taxi::setPositionActuelle(int numeroDestination)  {
   * Paramètres: aucun
   * Retour: Liste des requêtes, provenant du fichier
   ****************************************************************************/
-const vector<Passager*> Taxi::getListeRequetes() {
+const vector<Passager*> Taxi::getListeRequetes()
+{
 	return listeRequete_;
 }
 
@@ -82,14 +82,13 @@ const vector<Passager*> Taxi::getListeRequetes() {
   ****************************************************************************/
 void Taxi::EffacerTousRequetes()
 {
-	
 	for (auto it : listeRequete_)
 	{
-		if (it != nullptr) {
+		if (it != nullptr)
+		{
 			it = nullptr;
 			delete it;
 		}
-
 	}
 	listeRequete_.clear();
 }
@@ -109,6 +108,8 @@ void Taxi::miseAjourRequetes()
 	lireFichier();
 	placerPassagerDansGraphe();
 }
+
+
 /****************************************************************************
   * Fonction: Taxi::ajouterPassager
   * Description: Permet d'ajouter un passager dans le taxi 
@@ -117,10 +118,9 @@ void Taxi::miseAjourRequetes()
   * Paramètres: pointeur de la classe Passager
   * Retour: aucun
   ****************************************************************************/
-// ajoute un passager dans le taxi si nbPassager < 4
 void Taxi::ajouterPassager(Passager* passager)
 {
-	if (listePassagersTaxi_.size() < 4)
+	if (listePassagersTaxi_.size() < NB_PLACES_TAXI)
 	{
 		listePassagersTaxi_.push_back(passager);
 		passager->setDansTaxi(true);
@@ -134,6 +134,8 @@ void Taxi::ajouterPassager(Passager* passager)
 		return;
 	}
 }
+
+
 /****************************************************************************
   * Fonction: Taxi::ajouterSommet
   * Description: Permet d'ajouter un sommet dans l'historique des sommets
@@ -141,19 +143,19 @@ void Taxi::ajouterPassager(Passager* passager)
   * Paramètres: un sommet de la classe Sommet
   * Retour: aucun
   ****************************************************************************/
-// ajoute un sommet a historique
 void Taxi::ajouterSommet(Sommet* sommet)
 {
 	 historiqueSommetsParcouru_.push_back(sommet);
 	 return;
 }
+
+
 /****************************************************************************
   * Fonction: Taxi::enleverPassager
   * Description: Enlever le passager passer en paramètre si il est le premier arrivée 
   * Paramètres: un pointeur Passager
   * Retour: aucun
   ****************************************************************************/
-// enleve le passager prioritaire
 void Taxi::enleverPassager(Passager* passager)
 {
 	if (listePassagersTaxi_.size() != 1) {
@@ -171,6 +173,8 @@ void Taxi::enleverPassager(Passager* passager)
 	passager->setDansTaxi(false);
 
 }
+
+
 /****************************************************************************
   * Fonction: Taxi::chargerTaxi
   * Description: Permet de charger le taxi à 100% et enleve 10 min à tous les
@@ -187,6 +191,8 @@ void Taxi::chargerTaxi()
 		it->modifierTemps(10);
 	}	
 }
+
+
 /****************************************************************************
   * Fonction: Taxi::modificationEnergieRestante
   * Description: Méthode de  modification de l'energie restante du taxi
@@ -206,7 +212,6 @@ void Taxi::miseAJourBatterie(int distanceParcouru)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-//lit le fichier de requete et les place dans une liste de requete et positionne le taxi au point de depart
 void Taxi::lireFichier()
 {
 	ifstream fichier(nomFichier_);
@@ -231,13 +236,13 @@ void Taxi::lireFichier()
 	fichier.close();
 }
 
+
 /****************************************************************************
   * Fonction: Taxi::placerPassagerDansGraphe
   * Description: Permet de placer les requetes des passagers sur le graphe
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-//methode place les passagers et leur requete.
 void Taxi::placerPassagerDansGraphe()
 {
 	if (compteurRequete < listeFichierRequete_.size())
@@ -270,14 +275,9 @@ void Taxi::placerPassagerDansGraphe()
   ****************************************************************************/
 void Taxi::afficherRequetes()
 {
-
 	if (compteurAffichage < compteurRequete)
 	{	
-		
-		cout << " Passager " << listeRequete_[compteurAffichage]->getId() << " :"<< endl;
-		cout << "    Sommet De Depart : " << listeRequete_[compteurAffichage]->getSommetDepart() << endl
-			<< "    Sommet De Destination : " << listeRequete_[compteurAffichage]->getDestination() << endl
-			<< "    Temps maximum tolere: " << listeRequete_[compteurAffichage]->getTempsArrivee() << " min"<< endl << endl;
+		cout << *listeRequete_[compteurAffichage]; //affiche un passager	
 		compteurAffichage++;
 		afficherRequetes();
 	}
@@ -285,56 +285,6 @@ void Taxi::afficherRequetes()
 	{
 		compteurAffichage = 0;
 		return;
-	}
-	
-}
-/****************************************************************************
-  * Fonction: Taxi::afficherPassagerTaxi
-  * Description: Méthode d'affichage permettant d'afficher la liste de passagers
-				 présent dans le taxi
-  * Paramètres: aucun
-  * Retour: aucun
-  ****************************************************************************/
-void Taxi::afficherPassagerTaxi()
-{
-
-	
-	cout << listePassagersTaxi_[compteurPassager];
-
-	if (compteurPassager < listePassagersTaxi_.size())
-	{
-		compteurPassager++;
-		afficherPassagerTaxi();
-	}
+	}	
 }
 
-/****************************************************************************
-  * Fonction: canSwapPassager
-  * Description: Verifie que passagerASwap est plus prioritaire(selon ID) 
-				 que passagerdeComparaison(selon ID)
-  * Paramètres: passagerASwap et passagerdeComparaison
-  * Retour: vrai si passagerASwap est plus prioritaire que passagerdeComparaison
-  ****************************************************************************/
-bool canSwapPassager(Passager passagerASwap, Passager passagerdeComparaison)
-{
-	return passagerASwap.getId() < passagerdeComparaison.getId();
-}
-
-
-/****************************************************************************
-  * Fonction: trierSelonId
-  * Description: Permet de trier la liste des passagers dans le taxi selon 
-				 leurs priorité.
-  * Paramètres: passager1 et passager2
-  * Retour: aucun
-  ****************************************************************************/
-/*
-void Taxi::trierSelonId()
-{
-	int droite = listePassagersTaxi_.size();
-	int gauche = droite - 1;
-	while (canSwapPassager(listePassagersTaxi_[droite], listePassagersTaxi_[gauche]))
-	{
-		swap(listePassagersTaxi_[droite], listePassagersTaxi_[gauche]);
-	}
-}*/

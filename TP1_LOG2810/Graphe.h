@@ -1,8 +1,8 @@
 /****************************************************************************
- * Fichier:
- * Auteurs:
- * Date:
- * Description:
+ * Fichier: Graphe.h
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
+ * Date: 22 Mars 2020
+ * Description: Définition de la classe Graphe
  ****************************************************************************/
 #ifndef GRAPHE_H
 #define GRAPHE_H
@@ -31,32 +31,26 @@ public:
 	Graphe(string nomFichier);
 	~Graphe();
 
-	//methode d'acces
-	const string getNomFichier();
+	//methode d'acces	
 	const vector<Sommet*> getSommets();
 	const int getNbSommets();
-	const vector<string> getListeDonnees();
 	const vector<int> getSommetsRecharge();
-
-
-	//methode modification
-	void modifierNomFichier(const string& nouveauNomFichier);
-	
-	//reste des fonctions 
-	void creerGraphe();	
+		
+	//reste des fonctions
+	void creerGraphe();
 	void AffichageGraphe();
 	void EffacerTousSommets();
 	void miseAJourGraphe();
 	void lireFichier();
 	
-	Sommet* chercherSommet(int numeroSommet);	
+	Sommet* chercherSommet(int numeroSommet);
 
 private:
 	string nomFichier_;
 	vector<Sommet*> sommets_;
 	vector<string> listeDonnees_;
 	vector<int> listeSommetsRecharge_;
-	int nbSommets; 
+	int nbSommets;
 };
 
 

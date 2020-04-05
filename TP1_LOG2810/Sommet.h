@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: Sommet.h
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Définition de la classe Sommet des de ses méthodes
  ****************************************************************************/
@@ -31,7 +31,6 @@ public:
 
 
 	void ajouterSommetAdjacent(Sommet* sommetAdjacent, int temps);
-
 	bool operator!=(const Sommet sommet) const;
 	
 

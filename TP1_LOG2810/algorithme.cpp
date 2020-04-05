@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: algorithme.cpp
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Implémentation des méthodes utilisée pour l'algorithme
  ****************************************************************************/
@@ -60,28 +60,8 @@ Taxi Algorithme::getTaxi()
   ****************************************************************************/
 void Algorithme::ajouterTrajet(Trajet trajet)
 {
-	// TODO : Px etre ajouter un if pour ne pas ajouter le trajet s'il est deja present dans la liste
 	listeTrajetsEffectue.push_back(trajet);
-
-	// permet de trier la liste des trajet selon leur distance, en ordre croissant
-	//trierListeSelonDistance();
-	
 }
-/****************************************************************************
-  * Fonction: Algorithme::ajouterTrajetSiPlusCourt
-  * Description: Permet d'ajouter un Trajet seulement si la distance est inférieur 
-				 au trajet le plus court de la listeTrajetPossible 
-  * Paramètres: le Trajet à ajouter
-  * Retour: aucun
-  ****************************************************************************/
-void Algorithme::ajouterTrajetSiPlusCourt(Trajet trajet)
-{
-	if (listeTrajetsEffectue[0].distanceTotale > trajet.distanceTotale)
-	{
-		ajouterTrajet(trajet);
-	}
-}
-
 
 
 /****************************************************************************
@@ -127,35 +107,6 @@ void Algorithme::EffacerUnTrajet(Trajet trajet)
 	listeTrajetsEffectue.erase(it);
 	return;
 }
-/****************************************************************************
-  * Fonction: canSwapTrajet
-  * Description: Verifie que trajetASwap est plus court que Trajet de Comparaison
-  * Paramètres: trajetASwap et Trajet de Comparaison
-  * Retour: vrai si trajetASwap est plus court que Trajet de Comparaison
-  ****************************************************************************/
-bool canSwapTrajet(Trajet trajetASwap, Trajet TrajetdeComparaison)
-{
-	return trajetASwap.distanceTotale <= TrajetdeComparaison.distanceTotale;
-}
-/****************************************************************************
-  * Fonction: Algorithme::trierListeSelonDistance
-  * Description: Permet de trier la listes des trajets dans l'ordre croissant de distance
-  * Paramètres: aucun
-  * Retour: aucun
-  ****************************************************************************/
-void Algorithme::trierListeSelonDistance()
-{	
-    if (listeTrajetsEffectue.size() != 1) {
-        int droite = listeTrajetsEffectue.size();
-        int gauche = droite - 1;
-        while (canSwapTrajet(listeTrajetsEffectue[droite], listeTrajetsEffectue[gauche]))
-        {
-            swap(listeTrajetsEffectue[droite], listeTrajetsEffectue[gauche]);
-        }
-    }
-}
-
-
 
 Trajet Algorithme::dijkstra(int numeroSommetDepart, int numeroSommetArrive) {
 
@@ -266,8 +217,6 @@ Trajet Algorithme::dijkstra(int numeroSommetDepart, int numeroSommetArrive) {
 }
 
 
-
-
 /****************************************************************************
   * Fonction: Algorithme::plusCourtChemin
   * Description: Permet de déterminer le chemin le plus court de tous les sommets
@@ -292,7 +241,7 @@ void Algorithme::plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive)
         if (i != 0)
             cout << "->";
     }
-    cout << endl << "     Distance: " << trajet.distanceTotale << " min" << endl;
+    cout << endl << "     Temps: " << trajet.distanceTotale << " min" << endl;
 
     //Affichage de la distance
     taxi.miseAJourBatterie(trajet.distanceTotale);
@@ -439,14 +388,11 @@ Trajet Algorithme::prochainTrajet(int posititionAtuelle, Passager* requeteCouran
                 trajetChoisi = trajetDestinationRequete;
                 trajetChoisi.type = Trajet::destination;
             }
-
         }
     }
 
 
-
-
-    if ((taxi.getListePassager().size() < 4) && (taxi.getListePassager().size() > 0)) {
+    if ((taxi.getListePassager().size() < NB_PLACES_TAXI) && (taxi.getListePassager().size() > 0)) {
 
         // On compare la distance du trajet de destination à celle du départ des autres requêtes
 
@@ -557,13 +503,9 @@ void Algorithme::traiterRequetes() {
                                 requeteCourante = taxi.getListePassager().front()->getId();
                             passagerQuitte++;
                             j = -1;
-
-                        }
-
-
-                    }
-                    
-                    else {
+						}
+					}                    
+                    else{
                         taxi.getListePassager()[j]->setTempsDepasse(true);
                         taxi.enleverPassager(taxi.getListePassager()[j]);
                         if (taxi.getListePassager().size() == 1)
@@ -572,34 +514,26 @@ void Algorithme::traiterRequetes() {
                     }
                 }
             }
-            else {
+            else{
                 // Si le temps du passager - le nouveau temps pacrouru est plus grand que 0
                 if (((taxi.getListePassager().front()->getTempsArrivee() + sousTrajet.distanceTotale) - sousTempsParcouru) > 0) {
 
-                // Et si le sommet de destination de la requete est la position actuelle
-                if (taxi.getListePassager().front()->getDestination() == sousTrajet.listeSommetParcouru[i]->getNumeroDuSommet()) {
+					// Et si le sommet de destination de la requete est la position actuelle
+					if (taxi.getListePassager().front()->getDestination() == sousTrajet.listeSommetParcouru[i]->getNumeroDuSommet()) {
 
-                    taxi.getListePassager().front()->setComplete(true);
-                    taxi.enleverPassager(taxi.getListePassager().front());
-                    if (taxi.getListePassager().size() == 1)
-                        requeteCourante = taxi.getListePassager().front()->getId();
-                    passagerQuitte++;
-                }
+						taxi.getListePassager().front()->setComplete(true);
+						taxi.enleverPassager(taxi.getListePassager().front());
+						if (taxi.getListePassager().size() == 1)
+							requeteCourante = taxi.getListePassager().front()->getId();
+						passagerQuitte++;
+					}
+				}
             }
-
-            }
-
-            
-
         }
-
         if (passagerQuitte == taxi.getListeRequetes().size())
             termine = true;
-
-
     }
     //Affichage du trajet
-
 
     cout << endl << "     ------------------ Trajet de la liste de requete ------------------";
 

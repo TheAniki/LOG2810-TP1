@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: Taxi.h
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Définition de la classe Taxi des de ses méthodes
  ****************************************************************************/
@@ -51,17 +51,12 @@ public:
 	void chargerTaxi();
 	void miseAJourBatterie(int distanceParcouru);
 
-
-
 	// methode lecture requete;
 	void lireFichier();
 	void placerPassagerDansGraphe();
 
 	// methode affichage
-	void afficherRequetes();
-	void afficherPassagerTaxi();
-
-	//void trierSelonId();
+	void afficherRequetes();	
 
 private:
 	int batterieRestante_;

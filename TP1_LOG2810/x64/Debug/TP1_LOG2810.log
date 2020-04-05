@@ -1,5 +1,13 @@
-﻿  algorithme.cpp
-\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp : fatal error C1041: cannot open program database '\\Mac\Home\Documents\Git\LOG2810\LOG2810-TP1\TP1_LOG2810\x64\Debug\vc142.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+﻿  Graphe.cpp
+  Passager.cpp
+  Sommet.cpp
+  algorithme.cpp
+C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(241,55): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(265,55): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(291,59): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(487,63): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
   main.cpp
   taxi.cpp
-  Generating Code...
+  Génération de code en cours...
+C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\TP1_LOG2810\algorithme.cpp(555,62): warning C4267:  'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  TP1_LOG2810.vcxproj -> C:\Users\ouass\Desktop\POLY-Work\Session 4\LOG2810\LOG2810-TP1\x64\Debug\TP1_LOG2810.exe

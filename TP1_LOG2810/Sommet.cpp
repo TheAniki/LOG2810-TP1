@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: Sommet.cpp
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Implémentation des méthodes de la classe Sommet
  ****************************************************************************/

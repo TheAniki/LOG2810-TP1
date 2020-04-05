@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier:
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description:
  ****************************************************************************/
@@ -27,19 +27,19 @@ using namespace std;
 void affichageOptions()
 {
 	cout << endl
-		<< " A -> Mettre a jouer la carte" << endl
+		<< " A -> Mettre a jour la carte" << endl
 		<< " B -> Determiner le plus court chemin securitaire" << endl
 		<< " C -> Traiter les requetes" << endl
 		<< " D -> QUITTER" << endl << endl
 		<< "Choisir option (A, B, C ou D) : ";
 }
+
 /****************************************************************************
   * Fonction: choixPossible
   * Description: Permet de forcer la sélection parmit les char dans les if
   * Paramètres: char choix
   * Retour: vrai si choix est parmis les choix possible, faux si autre
   ****************************************************************************/
-
 bool choixPossible(char choix)
 {
 
@@ -50,34 +50,30 @@ bool choixPossible(char choix)
 	if (choix == 'T') return true;
 	return false;
 }
+
 /****************************************************************************
   * Fonction: choixYesNo 
   * Description: Permet de forcer la sélection à y/n 
   * Paramètres: char choix
   * Retour: vrai si y ou n , faux pour le reste
   ****************************************************************************/
-/*
-methode choixYesNo 
-retourne true si choix est y et n sinon
-retourne false
-*/
 bool choixYesNo(char choix)
 {
 	if (choix == 'Y') return true;
 	if (choix == 'N') return true;
 	return false;
 }
+
 /****************************************************************************
   * Fonction: optionUpdateMap()
   * Description: Séquence pour l'option a
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-Graphe optionUpdateMap(const Graphe& graphe)
+Graphe optionUpdateMap(Graphe& graphe)
 {
 
-
-	/*
+	graphe.miseAJourGraphe();
 	char afficher;
 
 	cout << endl << "   Voulez-vous afficher le graphe? (Y/N) ";
@@ -93,10 +89,9 @@ Graphe optionUpdateMap(const Graphe& graphe)
 
 	if (afficher == 'Y')
 		graphe.AffichageGraphe();
-		*/
-	
 	return graphe;
 }
+
 /****************************************************************************
   * Fonction: optionCheminPlusCourt()
   * Description: Séquence pour l'option b
@@ -120,6 +115,7 @@ void optionCheminPlusCourt(const Graphe& graphe)
 	algorithme.EffacerTousLesTrajets();
 
 }
+
 /****************************************************************************
   * Fonction: optionTraiterRequête()
   * Description: Séquence pour l'option c
@@ -195,32 +191,9 @@ int main()
 		case 'A':	
 			cout << endl << "   --------------------------" << endl
 			<< "   A) Mettre a jouer la carte" << endl
-			<< "   --------------------------" << endl;
+			<< "   --------------------------" << endl;			
 
-			// Construction du graphe à partir du fichier contenant les arrondissements
-			//graphe.lireFichier();
-			//graphe.creerGraphe();
-
-			graphe.miseAJourGraphe();
-
-			//graphe = optionUpdateMap(graphe);	
-
-
-			char afficher;
-
-			cout << endl << "   Voulez-vous afficher le graphe? (Y/N) ";
-			cin >> afficher;
-			afficher = toupper(afficher);
-			cout << endl;
-
-			while (!choixYesNo(afficher))
-			{
-				cin >> afficher;
-				afficher = toupper(afficher);
-			}
-
-			if (afficher == 'Y')
-				graphe.AffichageGraphe();
+			graphe = optionUpdateMap(graphe);			
 
 			break;
 

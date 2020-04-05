@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: algorithme.h
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Initialisation de la classe Algorithme et 
 				définition de la struct Trajet et des méthodes de l'algorithme
@@ -44,21 +44,14 @@ public:
 	Taxi getTaxi();
 
 
-	void ajouterTrajet(Trajet trajet);
-	void ajouterTrajetSiPlusCourt(Trajet trajet);
+	void ajouterTrajet(Trajet trajet);	
 
 	void EffacerTousLesTrajets();
 	void EffacerUnTrajet(Trajet trajet);
-
-	void trierListeSelonDistance();
-
-	//bool comparerDistance(Trajet trajetAComparer,Trajet trajetDeLaListe);
-	//bool operator<(const Trajet& trajetAComparer); const
-
+	
 	Trajet dijkstra(int numeroSommetDepart, int numeroSommetArrive);
 	void plusCourtChemin(int numeroSommetDepart, int numeroSommetArrive);
-	const void afficherTrajet(Trajet trajet);
-	void traiterRequetes(); 
+	void traiterRequetes();
 	Trajet conduireVersSommet(int numeroSommetDestination);
 
 	Trajet trajetRecharger(int numeroPositionActuelle);

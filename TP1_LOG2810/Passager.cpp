@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: Passager.cpp
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Implémentation des méthodes de la classe Passager
  ****************************************************************************/
@@ -39,11 +39,6 @@ const int Passager::getSommetDepart()
 	return sommetDepart_;
 }
 
-const int Passager::getSommetArrive()
-{
-	return sommetArrive_;
-}
-
 const int Passager::getId()
 {
 	return id_;
@@ -53,9 +48,6 @@ const bool Passager::getDansTaxi()
 {
 	return dansTaxi_;
 }
-
-
-
 
 const bool Passager::getTempsDepasse()
 {
@@ -69,7 +61,7 @@ const bool Passager::getComplete()
 }
 
 
-
+//setters
 void Passager::setDansTaxi(bool dansTaxi)
 {
 	dansTaxi_ = dansTaxi;
@@ -100,22 +92,7 @@ void Passager::modifierTemps(int tempsAretirer)
 		tempsArrivee_ = 0;
 	}
 }
-/****************************************************************************
-  * Fonction: Passager::operator==
-  * Description: surcharge de l'opérateur == 
-				 pour faire les oprération Passager == Passager
-  * Paramètres: un Passager passer par adresse
-  * Retour: un bool true si passager1 == passager2 et false autrement
-  ****************************************************************************/
-bool Passager::operator==(const Passager& passager) const
-{
-	return (
-		id_ == passager.id_ &&
-		sommetDepart_ == passager.sommetDepart_ &&
-		sommetArrive_ == passager.sommetArrive_ &&
-		tempsArrivee_ == passager.tempsArrivee_
-		);
-}
+
 /****************************************************************************
   * Fonction: operator<<
   * Description: surcharge de l'opérateur <<
@@ -125,12 +102,8 @@ bool Passager::operator==(const Passager& passager) const
   ****************************************************************************/
 ostream& operator<<(ostream& o, const Passager& unPassager)
 {
-	return o << " Passager # " << unPassager.id_ 
-		<< " | Sommet de depart: " << unPassager.sommetDepart_ 
-		<< " | Destination : " << unPassager.sommetArrive_
-		<< " | tempsRestant : " << unPassager.tempsArrivee_ << endl;
-	if (unPassager.tempsArrivee_ <= 0)
-	{
-		cout << "Temps expiree pour le passager " << unPassager.id_;
-	}
+	return o << " Passager " << unPassager.id_ << " :" << endl
+		 << "    Sommet De Depart : " << unPassager.sommetDepart_ << endl
+		<< "    Sommet De Destination : " << unPassager.sommetArrive_ << endl
+		<< "    Temps maximum tolere: " << unPassager.tempsArrivee_<< " min" << endl << endl; 	
 }

@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier:
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Implémentation des méthodes de la classe Graphe 
 				et de méthode globale utilisé lors de la lecture des fichiers 
@@ -28,15 +28,9 @@ Graphe::~Graphe()
 }
 
 
-
-
 //****************************************************************************
 //Getters
 //****************************************************************************
-const string Graphe::getNomFichier()
-{
-	return nomFichier_;
-}
 
 
 const vector<Sommet*> Graphe::getSommets()
@@ -44,33 +38,14 @@ const vector<Sommet*> Graphe::getSommets()
 	return sommets_;
 }
 
-
 const int Graphe::getNbSommets() 
 {
-	return nbSommets; 
-}
-
-
-const vector<string> Graphe::getListeDonnees()
-{
-	return listeDonnees_;
+	return nbSommets;
 }
 
 const vector<int> Graphe::getSommetsRecharge() {
 	return listeSommetsRecharge_;
 }
-
-/****************************************************************************
-  * Fonction: Graphe::modifierNomFichier
-  * Description: Permet de modifier le nom du fichier 
-  * Paramètres: string nouveauNomFichier
-  * Retour: aucun
-  ****************************************************************************/
-void Graphe::modifierNomFichier(const string& nouveauNomFichier)
-{
-	nomFichier_ = nouveauNomFichier;
-}
-
 
 
 /****************************************************************************
@@ -106,9 +81,6 @@ void Graphe::lireFichier()
 }
 
 
-
-
-
 /****************************************************************************
   * Fonction: partieVoisin
   * Description: Fonction générale permettant de compter le nombre de virgule
@@ -129,11 +101,6 @@ bool partieVoisin(string ligne)
 	}
 	return (compteurVirgule == 2) ? true : false;
 }
-
-
-
-
-
 
 
 /****************************************************************************
@@ -157,11 +124,6 @@ bool partieSommet(string ligne)
 	}
 	return (compteurVirgule == 1) ? true : false;
 }
-
-
-
-
-
 
 
 /****************************************************************************
@@ -216,11 +178,6 @@ void Graphe::creerGraphe()
 }
 
 
-
-
-
-
-
 /****************************************************************************
   * Fonction: Graphe::AffichageGraphe
   * Description: Méthode permettant d'afficher le graphe sous la forme 
@@ -273,11 +230,6 @@ void Graphe::AffichageGraphe()
 }
 
 
-
-
-
-
-
 /****************************************************************************
   * Fonction: Graphe::EffacerTousSommets
   * Description: Méthode permettant d'effacer tous les sommets de la liste de
@@ -300,11 +252,6 @@ void Graphe::EffacerTousSommets()
 }
 
 
-
-
-
-
-
 /****************************************************************************
   * Fonction: Graphe::miseAJourGraphe
   * Description: Méthode contenant la séquence de la mise à jour du graphe
@@ -320,12 +267,6 @@ void Graphe::miseAJourGraphe()
 	lireFichier();
 	creerGraphe();
 }
-
-
-
-
-
-
 
 
 /****************************************************************************
@@ -346,10 +287,6 @@ Sommet* Graphe::chercherSommet(int numeroSommet)
 	cout << "ERREUR : sommet " << numeroSommet << " non trouve" << endl;
 	return nullptr;
 }
-
-
-
-
 
 
 /****************************************************************************
@@ -373,10 +310,6 @@ vector<string> split(const string& s, char delim) {
 }
 
 
-
-
-
-
 /****************************************************************************
   * Fonction: convertStringtoBool
   * Description: Permet de convertir le string en bool
@@ -387,8 +320,6 @@ bool convertStringtoBool(string ligne)
 {
 	return (ligne == "1") ? true : false;
 }
-
-
 
 
 /****************************************************************************

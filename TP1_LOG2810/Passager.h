@@ -1,6 +1,6 @@
 /****************************************************************************
  * Fichier: Passager.h
- * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay () et Mélody Roy ()
+ * Auteurs: Ouassim Ouali (1958275) , Pier-Luc Tanguay (1953707) et Mélody Roy (1991902)
  * Date: 22 Mars 2020
  * Description: Définition de la classe Passager des de ses méthodes
  ****************************************************************************/
@@ -26,7 +26,6 @@ public:
 	const int getTempsArrivee();
 	const int getDestination();
 	const int getSommetDepart();
-	const int getSommetArrive();
 	const int getId();
 	const bool getDansTaxi();
 	const bool getTempsDepasse();
@@ -36,15 +35,14 @@ public:
 	const bool getComplete();
 	void setComplete(bool complete);
 
-
 	void modifierTemps(int tempsAretirer);
 
-	bool operator==(const Passager& passager) const;
 	friend ostream& operator<<(ostream& o, const Passager& unPassager);
+
 private:
 
 	int id_; // identifiant
-	int tempsArrivee_; // temps limite.	
+	int tempsArrivee_; // temps limite.
 	int sommetDepart_; // numero du sommet de depart.
 	int sommetArrive_; // numero du sommet a atteindre.
 	bool dansTaxi_;
