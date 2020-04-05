@@ -11,7 +11,7 @@ Sommet::Sommet() : numeroDuSommet_(0),presenceBorne_(false) {
 }
 Sommet::~Sommet()
 {
- //   EffacerTousSommetsAdjacents();
+    EffacerTousSommetsAdjacents();
 }
 Sommet::Sommet(int numeroDuSommet, bool presenceBorne) : numeroDuSommet_(numeroDuSommet) , presenceBorne_(presenceBorne)
 {
@@ -56,6 +56,8 @@ void Sommet::EffacerTousSommetsAdjacents()
     for (auto it : sommetsAdjacents_)
     {
         if (it.first != nullptr) {
+
+   
             it.first = nullptr;
             delete(it.first);
         }

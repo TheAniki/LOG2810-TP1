@@ -296,6 +296,7 @@ void Graphe::EffacerTousSommets()
 		}
 	}
 	sommets_.clear();
+	listeSommetsRecharge_.clear();
 }
 
 
@@ -313,6 +314,8 @@ void Graphe::EffacerTousSommets()
 void Graphe::miseAJourGraphe()
 {
 	EffacerTousSommets();
+	listeDonnees_.clear();
+	nbSommets = 0;
 	compteurLigne = 0;
 	lireFichier();
 	creerGraphe();

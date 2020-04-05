@@ -73,14 +73,11 @@ bool choixYesNo(char choix)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-Graphe optionUpdateMap(Graphe& graphe)
+Graphe optionUpdateMap(const Graphe& graphe)
 {
 
-	// Construction du graphe à partir du fichier contenant les arrondissements
-	graphe.lireFichier();
-	graphe.creerGraphe();
 
-
+	/*
 	char afficher;
 
 	cout << endl << "   Voulez-vous afficher le graphe? (Y/N) ";
@@ -96,6 +93,7 @@ Graphe optionUpdateMap(Graphe& graphe)
 
 	if (afficher == 'Y')
 		graphe.AffichageGraphe();
+		*/
 	
 	return graphe;
 }
@@ -128,9 +126,11 @@ void optionCheminPlusCourt(const Graphe& graphe)
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-void optionTraiterRequête(Graphe& graphe, Taxi& taxi)
+void optionTraiterRequête(Graphe& graphe)
 {
-	taxi.lireFichier();
+	Taxi taxi = Taxi("requetes.txt");
+
+	taxi.miseAjourRequetes();
 	taxi.placerPassagerDansGraphe();
 	Algorithme algorithme(graphe, taxi);
 
@@ -156,19 +156,7 @@ void optionTraiterRequête(Graphe& graphe, Taxi& taxi)
 		cout << "=================================" << endl << endl;
 	}
 
-
 	algorithme.traiterRequetes();
-
-
-
-
-
-
-
-
-
-
-
 }
 
 int main()
@@ -208,21 +196,43 @@ int main()
 			cout << endl << "   --------------------------" << endl
 			<< "   A) Mettre a jouer la carte" << endl
 			<< "   --------------------------" << endl;
-			graphe = optionUpdateMap(graphe);		
+
+			// Construction du graphe à partir du fichier contenant les arrondissements
+			//graphe.lireFichier();
+			//graphe.creerGraphe();
+
+			graphe.miseAJourGraphe();
+
+			//graphe = optionUpdateMap(graphe);	
+
+
+			char afficher;
+
+			cout << endl << "   Voulez-vous afficher le graphe? (Y/N) ";
+			cin >> afficher;
+			afficher = toupper(afficher);
+			cout << endl;
+
+			while (!choixYesNo(afficher))
+			{
+				cin >> afficher;
+				afficher = toupper(afficher);
+			}
+
+			if (afficher == 'Y')
+				graphe.AffichageGraphe();
+
 			break;
 
 
 		// Sélection Chemin plus court
 		case 'B' :	
 
+			graphe.miseAJourGraphe();
 			cout << endl << "   ----------------------------------------------" << endl
 				<< "   B) Determiner le plus court chemin securitaire" << endl
 				<< "   ----------------------------------------------" << endl;
 			optionCheminPlusCourt(graphe);
-
-			//On semble perdre les sommet adjacents ici si on refait par le graphe POURQUOI?
-			graphe.miseAJourGraphe();
-
 			break;
 
 
@@ -230,14 +240,11 @@ int main()
 		// Sélection Traiter requêtes
 		case 'C' :	
 
+			graphe.miseAJourGraphe();
 			cout << endl << "   -----------------------" << endl
 				<< "   C) Traiter les requetes" << endl
 				<< "   -----------------------" << endl;
-			optionTraiterRequête(graphe, taxi);
-
-			//On semble perdre les sommet adjacents ici si on refait par le graphe POURQUOI?
-			graphe.miseAJourGraphe();
-
+			optionTraiterRequête(graphe);
 			break;
 
 		// Sélection Quitter
